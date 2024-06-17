@@ -5,6 +5,10 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticket.App", "Ticket.App\Ticket.App.csproj", "{565A6268-CE59-48CC-9339-43498C0C00CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticket.Entity", "Ticket.Entity\Ticket.Entity.csproj", "{A59E5FFB-65FE-4B3E-BE6B-3524E5048271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticet.Core", "Ticet.Core\Ticet.Core.csproj", "{C1E813CC-1FC9-4F90-9597-E75880EBF3BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{565A6268-CE59-48CC-9339-43498C0C00CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{565A6268-CE59-48CC-9339-43498C0C00CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{565A6268-CE59-48CC-9339-43498C0C00CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59E5FFB-65FE-4B3E-BE6B-3524E5048271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59E5FFB-65FE-4B3E-BE6B-3524E5048271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59E5FFB-65FE-4B3E-BE6B-3524E5048271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59E5FFB-65FE-4B3E-BE6B-3524E5048271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1E813CC-1FC9-4F90-9597-E75880EBF3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1E813CC-1FC9-4F90-9597-E75880EBF3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1E813CC-1FC9-4F90-9597-E75880EBF3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1E813CC-1FC9-4F90-9597-E75880EBF3BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
