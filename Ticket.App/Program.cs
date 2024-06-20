@@ -1,27 +1,58 @@
-var builder = WebApplication.CreateBuilder(args);
+using Ticket.App;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using Ticket.App.Controllers;
+using Ticket.Entity;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder
+                    .ConfigureServices((context, services) =>
+                    {
+                        services.AddHttpContextAccessor();
+                        services.AddMvc();
+                        services.AddSession();
+                        services.AddAuthorization();
+                        services.AddRazorPages();
+                        services.AddHttpClient();
+                        services.AddControllersWithViews();
+                        services.AddDistributedMemoryCache();
+                        services.AddAuthentication(options =>
+                        {
+                            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                            options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        }).AddCookie(options =>
+                        {
+                            options.Cookie.HttpOnly = true;
+                            options.LoginPath = "/Login";
+                        });
+                        services.AddScoped<HomeController>();
+                        services.AddDbContext<Context>(options =>
+                              options.UseSqlServer(context.Configuration.GetConnectionString("ConnectionString"),
+                                  sqlOptions => sqlOptions.MigrationsAssembly("Ticket.App")));
+                    })
+                    .Configure(app =>
+                    {
+                        app.UseStaticFiles();
+                        app.UseRouting();
+                        app.UseAuthentication();
+                        app.UseAuthorization();
+                        app.UseEndpoints(endpoints =>
+                        {
+                            endpoints.MapControllerRoute(
+                                name: "default",
+                                pattern: "{controller=Home}/{action=Index}/{id?}");
+                        });
+                    });
+            });
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();
