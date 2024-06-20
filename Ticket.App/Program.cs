@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Ticket.App.Controllers;
 using Ticket.Entity;
+using Ticet.Core.Interfaces;
+using Ticet.Core.Services;
 
 public class Program
 {
@@ -40,6 +42,14 @@ public class Program
                         services.AddDbContext<Context>(options =>
                               options.UseSqlServer(context.Configuration.GetConnectionString("ConnectionString"),
                                   sqlOptions => sqlOptions.MigrationsAssembly("Ticket.App")));
+                        services.AddScoped<IUserService, UserService>();
+                                               // Add session services
+                        services.AddSession(options =>
+                        {
+                            options.IdleTimeout = TimeSpan.FromMinutes(30);
+                            options.Cookie.HttpOnly = true;
+                            options.Cookie.IsEssential = true;
+                        });
                     })
                     .Configure(app =>
                     {
@@ -47,6 +57,8 @@ public class Program
                         app.UseRouting();
                         app.UseAuthentication();
                         app.UseAuthorization();
+                        // Enable session middleware
+                        app.UseSession();
                         app.UseEndpoints(endpoints =>
                         {
                             endpoints.MapControllerRoute(
