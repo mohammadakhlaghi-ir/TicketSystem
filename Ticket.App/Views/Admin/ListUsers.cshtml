@@ -1,1 +1,31 @@
-﻿list users
+﻿@using Ticet.Core.DTOs
+@model ListUsersViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<h2>List of Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.ID</td>
+                <td>@user.Name</td>
+                <td>@user.RoleName</td>
+                <td>
+                    <a href="@Url.Action("EditUser", "Admin", new { id = user.ID })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("DeleteUser", "Admin", new { id = user.ID })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

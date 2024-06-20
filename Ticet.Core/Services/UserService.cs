@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,10 @@ namespace Ticet.Core.Services
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+        }
+        public List<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
         }
     }
 }
