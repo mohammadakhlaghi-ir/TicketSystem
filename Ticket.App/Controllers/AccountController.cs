@@ -19,6 +19,8 @@ namespace Ticket.App.Controllers
         [Authorize]
         public IActionResult Dashboard()
         {
+            string roleName = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            ViewBag.RoleName = roleName; // Pass roleName to the view
             return View();
         }
         [Route("Login")]
@@ -58,6 +60,13 @@ namespace Ticket.App.Controllers
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account"); // Redirect to home or another page after logout
         }
     }
 }

@@ -1,1 +1,15 @@
-﻿dashboard
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+<h1>Welcome to the Dashboard</h1>
+@if (ViewBag.RoleName == "Admin")
+{
+    <h2>Hello Admin!</h2>
+}
+else
+{
+    <h2>Hello User!</h2>
+}
+<form asp-controller="Account" asp-action="Logout" method="post">
+    <button type="submit" class="btn btn-warning">Logout</button>
+</form>
