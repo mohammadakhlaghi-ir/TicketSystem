@@ -11,7 +11,5 @@ namespace Ticket.App.Controllers
         {
             return View();
         }
-
-
     }
 }
