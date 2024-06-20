@@ -5,6 +5,8 @@ using Ticket.App.Controllers;
 using Ticket.Entity;
 using Ticet.Core.Interfaces;
 using Ticet.Core.Services;
+using Ticet.Core.Permissions;
+using Microsoft.AspNetCore.Authorization;
 
 public class Program
 {
@@ -23,7 +25,12 @@ public class Program
                         services.AddHttpContextAccessor();
                         services.AddMvc();
                         services.AddSession();
-                        services.AddAuthorization();
+                        services.AddAuthorization(options =>
+                        {
+                            options.AddPolicy("AdminPolicy", policy =>
+                                policy.Requirements.Add(new AdminRequirement()));
+                        });
+                        services.AddSingleton<IAuthorizationHandler, AdminRequirementHandler>();
                         services.AddRazorPages();
                         services.AddHttpClient();
                         services.AddControllersWithViews();
@@ -44,7 +51,10 @@ public class Program
                               options.UseSqlServer(context.Configuration.GetConnectionString("ConnectionString"),
                                   sqlOptions => sqlOptions.MigrationsAssembly("Ticket.App")));
                         services.AddScoped<IUserService, UserService>();
-           
+                        services.AddMvc().AddRazorPagesOptions(options =>
+                        {
+                            options.Conventions.AuthorizePage("/Account/AccessDenied");
+                        });
                     })
                     .Configure(app =>
                     {

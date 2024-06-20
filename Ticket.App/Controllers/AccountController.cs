@@ -106,6 +106,10 @@ namespace Ticket.App.Controllers
             // If ModelState is not valid or if an exception occurs, return the Register view with errors
             return View(model);
         }
-
+        [Route("Account/AccessDenied")]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

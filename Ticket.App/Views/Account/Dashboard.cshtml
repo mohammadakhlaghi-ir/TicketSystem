@@ -5,6 +5,11 @@
 @if (ViewBag.RoleName == "Admin")
 {
     <h2>Hello Admin!</h2>
+    <div class="d-flex justify-content-evenly">
+        <a href="/ListUsers" class="btn-primary p-2 rounded">List Users</a>
+        <a href="/ListTickets" class="btn-primary p-2 rounded">List Tickets</a>
+        <a href="/ListCategories" class="btn-primary p-2 rounded">List Categories</a>
+    </div>
 }
 else
 {
