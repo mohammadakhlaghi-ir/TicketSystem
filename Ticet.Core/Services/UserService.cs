@@ -22,5 +22,10 @@ namespace Ticet.Core.Services
             return _context.Users.SingleOrDefault(u => u.Name == name && u.Password == password);
 
         }
+        public async Task AddUserAsync(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

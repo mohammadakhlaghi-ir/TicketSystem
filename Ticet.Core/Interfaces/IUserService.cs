@@ -10,5 +10,6 @@ namespace Ticet.Core.Interfaces
     public interface IUserService
     {
         User Authenticate(string name, string password);
+        Task AddUserAsync(User user);
     }
 }

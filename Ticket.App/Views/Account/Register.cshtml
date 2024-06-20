@@ -1,13 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Register";
 }
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
             @if (!User.Identity.IsAuthenticated)
             {
-            <h2 class="text-center mt-5">Login</h2>
-                <form asp-action="Login" asp-controller="Account" method="post">
+                <h2 class="text-center mt-5">Register</h2>
+                <form asp-action="Register" asp-controller="Account" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" id="Name" required>
@@ -16,10 +16,10 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" id="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
                 </form>
                 <div class="mt-2">
-                <a  href="/register"> don't account? you can register free here !'</a>
+                    <a href="/login"> you have account? you can login here !'</a>
                 </div>
             }
             else
@@ -32,6 +32,7 @@
     </div>
 </div>
 </div>
+
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="alert alert-danger">

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Ticet.Core.Interfaces;
+using Ticket.Entity.Models;
+using Ticet.Core.DTOs;
 
 namespace Ticket.App.Controllers
 {
@@ -68,5 +70,42 @@ namespace Ticket.App.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account"); // Redirect to home or another page after logout
         }
+        [Route("Register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Map the view model to your User entity
+                var user = new User
+                {
+                    Name = model.Name,
+                    Password = model.Password,
+                    RoleName = "User"  // Set RoleName to "User"
+                };
+
+                try
+                {
+                    // Call the UserService to add the user
+                    await _userService.AddUserAsync(user);
+
+                    // Optionally, you might redirect to a login page or display a success message
+                    return RedirectToAction("Login", "Account"); // Redirect to login page
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Unable to register user: {ex.Message}");
+                }
+            }
+
+            // If ModelState is not valid or if an exception occurs, return the Register view with errors
+            return View(model);
+        }
+
     }
 }
