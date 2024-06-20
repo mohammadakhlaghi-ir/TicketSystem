@@ -39,17 +39,12 @@ public class Program
                             options.LoginPath = "/Login";
                         });
                         services.AddScoped<HomeController>();
+                        services.AddScoped<AccountController>();
                         services.AddDbContext<Context>(options =>
                               options.UseSqlServer(context.Configuration.GetConnectionString("ConnectionString"),
                                   sqlOptions => sqlOptions.MigrationsAssembly("Ticket.App")));
                         services.AddScoped<IUserService, UserService>();
-                                               // Add session services
-                        services.AddSession(options =>
-                        {
-                            options.IdleTimeout = TimeSpan.FromMinutes(30);
-                            options.Cookie.HttpOnly = true;
-                            options.Cookie.IsEssential = true;
-                        });
+           
                     })
                     .Configure(app =>
                     {
@@ -57,8 +52,6 @@ public class Program
                         app.UseRouting();
                         app.UseAuthentication();
                         app.UseAuthorization();
-                        // Enable session middleware
-                        app.UseSession();
                         app.UseEndpoints(endpoints =>
                         {
                             endpoints.MapControllerRoute(
