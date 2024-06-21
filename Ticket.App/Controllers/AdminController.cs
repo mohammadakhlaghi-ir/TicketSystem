@@ -157,5 +157,18 @@ namespace Ticket.App.Controllers
             }
             return View(model);
         }
+        [Route("DeleteCategory/{id}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            var category = _categoryService.GetCategoryById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            _categoryService.DeleteCategory(id);
+            return RedirectToAction("ListCategories");
+        }
+
     }
 }

@@ -14,5 +14,7 @@ namespace Ticet.Core.Interfaces
         IEnumerable<CategoryViewModel> GetCategoriesWithTicketCount();
         Category GetCategoryById(int id);
         void UpdateCategory(Category category);
+        void DeleteCategory(int id);
+
     }
 }

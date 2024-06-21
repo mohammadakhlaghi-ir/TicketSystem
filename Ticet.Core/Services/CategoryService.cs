@@ -54,6 +54,14 @@ namespace Ticet.Core.Services
             _context.Categories.Update(category);
             _context.SaveChanges();
         }
-
+        public void DeleteCategory(int id)
+        {
+            var category = _context.Categories.Find(id);
+            if (category != null)
+            {
+                _context.Categories.Remove(category);
+                _context.SaveChanges();
+            }
+        }
     }
 }
