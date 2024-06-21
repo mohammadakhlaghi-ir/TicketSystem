@@ -40,6 +40,7 @@ namespace Ticket.App.Controllers
             {
                 var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()), // Ensure this claim is present
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Role, user.RoleName)
             };
@@ -57,7 +58,7 @@ namespace Ticket.App.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                return RedirectToAction("Dashboard","Account");
+                return RedirectToAction("Dashboard", "Account");
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");

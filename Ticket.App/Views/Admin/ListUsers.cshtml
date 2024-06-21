@@ -2,6 +2,8 @@
 @model ListUsersViewModel
 @{
     ViewData["Title"] = "Login";
+    var loggedInUserId = ViewBag.LoggedInUserId;
+
 }
 <h2>List of Users</h2>
 
@@ -23,9 +25,21 @@
                 <td>@user.RoleName</td>
                 <td>
                     <a href="@Url.Action("EditUser", "Admin", new { id = user.ID })" class="btn btn-primary">Edit</a>
-                    <a href="@Url.Action("DeleteUser", "Admin", new { id = user.ID })" class="btn btn-danger">Delete</a>
+                    @if (user.ID.ToString() != loggedInUserId)
+                    {
+                        <a href="#" class="btn btn-danger" onclick="confirmDelete(@user.ID)">Delete</a>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        function confirmDelete(userId) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                window.location.href = '@Url.Action("DeleteUser", "Admin", new { id = "__id__" })'.replace('__id__', userId);
+            }
+        }
+    </script>
+}

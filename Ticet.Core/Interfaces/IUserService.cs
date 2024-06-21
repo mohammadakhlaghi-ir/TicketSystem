@@ -12,5 +12,6 @@ namespace Ticet.Core.Interfaces
         User Authenticate(string name, string password);
         Task AddUserAsync(User user);
         List<User> GetAllUsers();
+        void DeleteUser(int id);
     }
 }
