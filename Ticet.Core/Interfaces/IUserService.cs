@@ -13,5 +13,7 @@ namespace Ticet.Core.Interfaces
         Task AddUserAsync(User user);
         List<User> GetAllUsers();
         void DeleteUser(int id);
+        User GetUserById(int id);
+        void UpdateUser(User user);
     }
 }

@@ -41,5 +41,56 @@ namespace Ticket.App.Controllers
             // Redirect to the ListUsers view
             return RedirectToAction("ListUsers");
         }
+        [Route("EditUser")]
+        public IActionResult EditUser(int id)
+        {
+            // Get the user by ID from the UserService
+            User user = _userService.GetUserById(id);
+
+            // Check if the user exists
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Create a ViewModel and populate it with the user data
+            var viewModel = new EditUserViewModel
+            {
+                ID = user.ID,
+                Name = user.Name,
+                Password = user.Password,
+                RoleName = user.RoleName
+            };
+
+            return View(viewModel); // Pass the viewModel to the view
+        }
+        [HttpPost]
+        [Route("EditUser")]
+        public IActionResult EditUser(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Get the existing user from the database
+                User user = _userService.GetUserById(model.ID);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the user details
+                user.Name = model.Name;
+                user.Password = model.Password;
+                user.RoleName = model.RoleName;
+
+                // Save the updated user details
+                _userService.UpdateUser(user);
+
+                return RedirectToAction("ListUsers");
+            }
+
+            return View(model);
+        }
+
     }
 }

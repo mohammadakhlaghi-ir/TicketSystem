@@ -41,5 +41,15 @@ namespace Ticet.Core.Services
                 _context.SaveChanges();
             }
         }
+        public User GetUserById(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.ID == id);
+        }
+
+        public void UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
     }
 }
