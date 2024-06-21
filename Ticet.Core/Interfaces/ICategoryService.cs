@@ -12,6 +12,7 @@ namespace Ticet.Core.Interfaces
     {
         Task<Category> CreateCategoryAsync(string categoryName);
         IEnumerable<CategoryViewModel> GetCategoriesWithTicketCount();
-
+        Category GetCategoryById(int id);
+        void UpdateCategory(Category category);
     }
 }

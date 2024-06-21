@@ -125,5 +125,37 @@ namespace Ticket.App.Controllers
             var categories = _categoryService.GetCategoriesWithTicketCount();
             return View(categories);
         }
+        [Route("EditCategory/{id}")]
+        public IActionResult EditCategory(int id)
+        {
+            var category = _categoryService.GetCategoryById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            var categoryViewModel = new CategoryViewModel
+            {
+                Id = category.Id,
+                Name = category.Name
+            };
+            return View(categoryViewModel);
+        }
+        [HttpPost]
+        [Route("EditCategory/{id}")]
+        public IActionResult EditCategory(int id, CategoryViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var category = _categoryService.GetCategoryById(id);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                category.Name = model.Name;
+                _categoryService.UpdateCategory(category);
+                return RedirectToAction("ListCategories");
+            }
+            return View(model);
+        }
     }
 }

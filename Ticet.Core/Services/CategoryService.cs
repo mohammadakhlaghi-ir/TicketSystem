@@ -7,6 +7,7 @@ using Ticet.Core.Interfaces;
 using Ticket.Entity.Models;
 using Ticket.Entity;
 using Ticet.Core.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ticet.Core.Services
 {
@@ -42,6 +43,17 @@ namespace Ticet.Core.Services
                 })
                 .ToList();
         }
-    }
+        public Category GetCategoryById(int id)
+        {
+            return _context.Categories.Include(c => c.Tickets)
+                                      .FirstOrDefault(c => c.Id == id);
+        }
 
+        public void UpdateCategory(Category category)
+        {
+            _context.Categories.Update(category);
+            _context.SaveChanges();
+        }
+
+    }
 }
