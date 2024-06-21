@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Ticet.Core.DTOs;
 using Ticet.Core.Interfaces;
+using Ticet.Core.Services;
 using Ticket.Entity.Models;
 
 namespace Ticket.App.Controllers
@@ -11,10 +12,11 @@ namespace Ticket.App.Controllers
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
-
-        public AdminController(IUserService userService)
+        private readonly ICategoryService _categoryService;
+        public AdminController(IUserService userService, ICategoryService categoryService)
         {
             _userService = userService;
+            _categoryService = categoryService;
         }
         [Route("ListUsers")]
         public IActionResult ListUsers()
@@ -91,6 +93,31 @@ namespace Ticket.App.Controllers
 
             return View(model);
         }
+        [Route("CreateCategory")]
+        public IActionResult CreateCategory()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Route("CreateCategory")]
+        public async Task<IActionResult> CreateCategory(string categoryName)
+        {
+            if (string.IsNullOrEmpty(categoryName))
+            {
+                ModelState.AddModelError("categoryName", "Category Name is required.");
+                return View();
+            }
 
+            try
+            {
+                var category = await _categoryService.CreateCategoryAsync(categoryName);
+                return RedirectToAction("Dashboard", "Account"); // Redirect to appropriate action after category creation
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while creating the category.");
+                return View();
+            }
+        }
     }
 }

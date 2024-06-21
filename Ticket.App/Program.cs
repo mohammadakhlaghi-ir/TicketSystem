@@ -51,6 +51,8 @@ public class Program
                               options.UseSqlServer(context.Configuration.GetConnectionString("ConnectionString"),
                                   sqlOptions => sqlOptions.MigrationsAssembly("Ticket.App")));
                         services.AddScoped<IUserService, UserService>();
+                        services.AddScoped<ICategoryService, CategoryService>();
+
                         services.AddMvc().AddRazorPagesOptions(options =>
                         {
                             options.Conventions.AuthorizePage("/Account/AccessDenied");
