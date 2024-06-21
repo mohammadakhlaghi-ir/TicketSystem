@@ -1,0 +1,35 @@
+﻿@using Ticet.Core.DTOs
+@model IEnumerable<CategoryViewModel>
+@{
+    ViewData["Title"] = "Categories List";
+}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between">
+    <h2>Categories List</h2>
+        <a href="/CreateCategory" class="btn  btn-primary"> Create Category</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Count of Tickets</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <th scope="row">@category.Id</th>
+                    <td>@category.Name</td>
+                    <td>@category.TicketCount</td>
+                    <td>
+                        <a href="/edit/@category.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="/delete/@category.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

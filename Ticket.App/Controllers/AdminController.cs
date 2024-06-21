@@ -119,5 +119,11 @@ namespace Ticket.App.Controllers
                 return View();
             }
         }
+        [Route("ListCategories")]
+        public IActionResult ListCategories()
+        {
+            var categories = _categoryService.GetCategoriesWithTicketCount();
+            return View(categories);
+        }
     }
 }
