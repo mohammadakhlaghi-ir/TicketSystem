@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ticket.Entity.Models
 {
-    public class User
+    public class Category
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Password { get; set; }
-        public string RoleName { get; set; }
         public ICollection<TicketModel> Tickets { get; set; }
-        public ICollection<Message> Messages { get; set; }
+
     }
 }

@@ -11,7 +11,9 @@ namespace Ticket.Entity
         }
 
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<TicketModel> Tickets { get; set; }
+        public DbSet<Message> Messages { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -25,8 +27,32 @@ namespace Ticket.Entity
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().HasData(
-                new User { ID = 1, Name = "Admin", Password = "123" ,RoleName="Admin" }
+                new User { ID = 1, Name = "Admin", Password = "123", RoleName = "Admin" }
             );
+
+            modelBuilder.Entity<TicketModel>()
+                .HasOne(t => t.User)
+                .WithMany(u => u.Tickets)
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // Avoid cascade delete
+
+            modelBuilder.Entity<TicketModel>()
+                .HasOne(t => t.Category)
+                .WithMany(c => c.Tickets)
+                .HasForeignKey(t => t.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict); // Avoid cascade delete
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Ticket)
+                .WithMany(t => t.Messages)
+                .HasForeignKey(m => m.TicketId)
+                .OnDelete(DeleteBehavior.Restrict); // Avoid cascade delete
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.User)
+                .WithMany(u => u.Messages)
+                .HasForeignKey(m => m.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // Avoid cascade delete
         }
     }
 }
