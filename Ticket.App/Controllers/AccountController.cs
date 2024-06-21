@@ -112,5 +112,48 @@ namespace Ticket.App.Controllers
         {
             return View();
         }
+        [Route("EditAccount")]
+        [Authorize]
+        public IActionResult EditAccount()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _userService.GetUserById(int.Parse(userId));
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new EditAccountViewModel
+            {
+                Name = user.Name,
+                Password = user.Password
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        [Route("EditAccount")]
+        [Authorize]
+        public IActionResult EditAccount(EditAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var user = _userService.GetUserById(int.Parse(userId));
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user.Name = model.Name;
+                user.Password = model.Password; // Make sure to hash the password before saving it
+
+                _userService.UpdateUser(user);
+
+                return RedirectToAction("Dashboard");
+            }
+
+            return View(model);
+        }
     }
 }
