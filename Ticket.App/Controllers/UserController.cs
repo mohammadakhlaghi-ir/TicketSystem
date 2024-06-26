@@ -43,16 +43,21 @@ namespace Ticket.App.Controllers
             return RedirectToAction("Dashboard","Account");
 		}
         [Route("MyTickets")]
-        public async Task<IActionResult> MyTickets()
+        public async Task<IActionResult> MyTickets(int page = 1, int pageSize = 10)
         {
             string roleName = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             ViewBag.RoleName = roleName;
 
             int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
-            var tickets = await _ticketService.GetUserTicketsWithDetailsAsync(userId);
+            var pagedResult = await _ticketService.GetUserTicketsWithDetailsAsync(userId, page, pageSize);
 
-            return View(tickets);
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalCount = pagedResult.TotalCount;
+
+            return View(pagedResult.Items);
         }
+
         [HttpPost]
         public async Task<IActionResult> CloseTicket(int ticketId)
         {

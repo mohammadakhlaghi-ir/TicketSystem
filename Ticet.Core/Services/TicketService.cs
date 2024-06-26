@@ -43,9 +43,9 @@ namespace Ticet.Core.Services
 			_context.Tickets.Add(ticket);
 			await _context.SaveChangesAsync();
 		}
-        public async Task<IEnumerable<TicketViewModel>> GetUserTicketsWithDetailsAsync(int userId)
+        public async Task<PagedResult<TicketViewModel>> GetUserTicketsWithDetailsAsync(int userId, int page, int pageSize)
         {
-            var tickets = await _context.Tickets
+            var query = _context.Tickets
                 .Where(t => t.UserId == userId)
                 .Select(t => new TicketViewModel
                 {
@@ -54,11 +54,21 @@ namespace Ticet.Core.Services
                     Status = t.Status,
                     LastMessageTimestamp = t.Messages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Timestamp,
                     CategoryName = t.Category.Name
-                })
+                });
+
+            var totalCount = await query.CountAsync();
+            var items = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            return tickets;
+            return new PagedResult<TicketViewModel>
+            {
+                Items = items,
+                TotalCount = totalCount
+            };
         }
+
         public async Task<bool> CloseTicketAsync(int ticketId)
         {
             var ticket = await _context.Tickets.FindAsync(ticketId);
