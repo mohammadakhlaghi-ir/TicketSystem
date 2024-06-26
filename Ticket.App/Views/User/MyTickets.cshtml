@@ -23,11 +23,18 @@
                         <td>@ticket.Id</td>
                         <td>@ticket.Title</td>
                         <td>@ticket.LastMessageTimestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                        <td>@(ticket.Status ? "Open" : "Closed")</td>
+                        <td id="status-@ticket.Id">@(ticket.Status ? "Open" : "Closed")</td>
                         <td>@ticket.CategoryName</td>
                         <td>
                             <button class="btn btn-primary btn-sm">Open</button>
-                            <button class="btn btn-danger btn-sm">Close</button>
+                            @if (ticket.Status)
+                            {
+                                <button class="btn btn-danger btn-sm" onclick="closeTicket(@ticket.Id, this)">Close</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-danger btn-sm" style="display:none;">Close</button>
+                            }
                         </td>
                     </tr>
                 }
@@ -37,4 +44,22 @@
 }
 else{
 	<h2>Admin Can not create new Ticket</h2>
+}
+@section Scripts {
+    <script>
+        function closeTicket(ticketId, button) {
+            $.ajax({
+                url: '@Url.Action("CloseTicket", "User")',
+                type: 'POST',
+                data: { ticketId: ticketId },
+                success: function () {
+                    $('#status-' + ticketId).text('Closed');
+                    $(button).hide();
+                },
+                error: function () {
+                    alert('Failed to close the ticket.');
+                }
+            });
+        }
+    </script>
 }

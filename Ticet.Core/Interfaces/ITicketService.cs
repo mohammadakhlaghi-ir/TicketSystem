@@ -11,6 +11,7 @@ namespace Ticet.Core.Interfaces
 	{
 		Task CreateTicketAsync(string title, string description, int categoryId, int userId);
         Task<IEnumerable<TicketViewModel>> GetUserTicketsWithDetailsAsync(int userId);
+        Task<bool> CloseTicketAsync(int ticketId);
 
     }
 }

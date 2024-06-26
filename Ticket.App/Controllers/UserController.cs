@@ -53,5 +53,15 @@ namespace Ticket.App.Controllers
 
             return View(tickets);
         }
+        [HttpPost]
+        public async Task<IActionResult> CloseTicket(int ticketId)
+        {
+            bool success = await _ticketService.CloseTicketAsync(ticketId);
+            if (success)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 }
