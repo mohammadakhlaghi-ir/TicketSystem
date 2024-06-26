@@ -30,7 +30,7 @@
                         <td id="status-@ticket.Id">@(ticket.Status ? "Open" : "Closed")</td>
                         <td>@ticket.CategoryName</td>
                         <td>
-                            <button class="btn btn-primary btn-sm">Open</button>
+                            <button class="btn btn-primary btn-sm" onclick="openTicket(@ticket.Id)">Open</button>
                             @if (ticket.Status)
                             {
                                 <button class="btn btn-danger btn-sm" onclick="closeTicket(@ticket.Id, this)">Close</button>
@@ -82,6 +82,9 @@ else{
                     alert('Failed to close the ticket.');
                 }
             });
+        }
+        function openTicket(ticketId) {
+            window.location.href = '@Url.Action("MyTicket", "User")' + '?ticketId=' + ticketId;
         }
     </script>
 }
