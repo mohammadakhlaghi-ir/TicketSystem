@@ -38,8 +38,20 @@ namespace Ticket.App.Controllers
 			int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
 
 			await _ticketService.CreateTicketAsync(Title, Description, CategoryId, userId);
+            TempData["SuccessMessage"] = "Your Ticket is created";
 
-			return RedirectToAction("Dashboard","Account");
+            return RedirectToAction("Dashboard","Account");
 		}
-	}
+        [Route("MyTickets")]
+        public async Task<IActionResult> MyTickets()
+        {
+            string roleName = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            ViewBag.RoleName = roleName;
+
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+            var tickets = await _ticketService.GetUserTicketsWithDetailsAsync(userId);
+
+            return View(tickets);
+        }
+    }
 }

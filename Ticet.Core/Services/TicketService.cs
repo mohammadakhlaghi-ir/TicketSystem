@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Ticet.Core.Interfaces;
 using Ticket.Entity.Models;
 using Ticket.Entity;
+using Ticet.Core.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ticet.Core.Services
 {
@@ -40,6 +42,22 @@ namespace Ticet.Core.Services
 			_context.Tickets.Add(ticket);
 			await _context.SaveChangesAsync();
 		}
-	}
+        public async Task<IEnumerable<TicketViewModel>> GetUserTicketsWithDetailsAsync(int userId)
+        {
+            var tickets = await _context.Tickets
+                .Where(t => t.UserId == userId)
+                .Select(t => new TicketViewModel
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    Status = t.Status,
+                    LastMessageTimestamp = t.Messages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Timestamp,
+                    CategoryName = t.Category.Name
+                })
+                .ToListAsync();
+
+            return tickets;
+        }
+    }
 
 }

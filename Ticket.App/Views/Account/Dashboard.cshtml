@@ -20,6 +20,12 @@ else
         <a href="/CreateTicket" class="btn-primary p-2 rounded">Create Ticket</a>
         <a href="/EditAccount" class="btn-primary p-2 rounded">Edit Account</a>
     </div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 }
 <form asp-controller="Account" asp-action="Logout" method="post">
     <button type="submit" class="btn btn-warning">Logout</button>

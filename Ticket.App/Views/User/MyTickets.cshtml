@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "My Tickets";
+}
+@if (ViewBag.RoleName == "User")
+{
+    <div class="container mt-5">
+        <h2 class="mb-4">Tickets List</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Ticket Id</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Category Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in Model)
+                {
+                    <tr>
+                        <td>@ticket.Id</td>
+                        <td>@ticket.Title</td>
+                        <td>@ticket.LastMessageTimestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@(ticket.Status ? "Open" : "Closed")</td>
+                        <td>@ticket.CategoryName</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Open</button>
+                            <button class="btn btn-danger btn-sm">Close</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else{
+	<h2>Admin Can not create new Ticket</h2>
+}
