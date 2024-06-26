@@ -52,8 +52,9 @@ public class Program
                                   sqlOptions => sqlOptions.MigrationsAssembly("Ticket.App")));
                         services.AddScoped<IUserService, UserService>();
                         services.AddScoped<ICategoryService, CategoryService>();
+						services.AddScoped<ITicketService, TicketService>();
 
-                        services.AddMvc().AddRazorPagesOptions(options =>
+						services.AddMvc().AddRazorPagesOptions(options =>
                         {
                             options.Conventions.AuthorizePage("/Account/AccessDenied");
                         });

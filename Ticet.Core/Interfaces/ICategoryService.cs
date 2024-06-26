@@ -15,6 +15,7 @@ namespace Ticet.Core.Interfaces
         Category GetCategoryById(int id);
         void UpdateCategory(Category category);
         void DeleteCategory(int id);
+        Task<List<Category>> GetCategoriesAsync();
 
     }
 }

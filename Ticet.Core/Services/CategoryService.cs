@@ -63,5 +63,9 @@ namespace Ticet.Core.Services
                 _context.SaveChanges();
             }
         }
+        public async Task<List<Category>> GetCategoriesAsync()
+        {
+            return await _context.Categories.ToListAsync();
+        }
     }
 }
