@@ -68,5 +68,11 @@ namespace Ticket.App.Controllers
             }
             return BadRequest();
         }
+        [Route("MyTicket")]
+        public IActionResult MyTicket()
+        {
+            ViewData["HideFooter"] = true;
+            return View();
+        }
     }
 }

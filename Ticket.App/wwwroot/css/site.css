@@ -23,3 +23,28 @@ body {
 a {
     text-decoration: none !important;
 }
+.ticket-card {
+    width: 50%;
+    margin-left: 0;
+}
+.admin-ticket {
+    text-align: -webkit-right;
+}
+.admin-ticket .ticket-card {
+     text-align:justify;
+ }
+.fixed-bottom-form {
+    position: fixed;
+    bottom: 0%;
+    right:10%;
+    width: 80%;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+.hide-footer {
+    display: none;
+}
+.margin-bottom-10 {
+    margin-bottom: 10%;
+}

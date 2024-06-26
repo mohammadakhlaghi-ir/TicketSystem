@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "My Ticket";
+}
+<div class="container mt-5">
+    <div class="card ticket-card">
+        <div class="card-header d-flex justify-content-between">
+            <div>
+            Ticket ID: <span id="ticket-id">12345</span>
+            </div>
+            <p class="card-text"><strong>Category Name:</strong> <span id="category-name">Technical Support</span></p>
+            <p class="card-text"><strong>Status:</strong> <span class="text-primary" id="ticket-status">Open</span></p>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" id="ticket-title">Sample Ticket Title</h5>
+            <p class="card-text" id="ticket-description">This is a sample description of the ticket. It provides details about the issue or task at hand.</p>
+        <span>2024-06-26 15:32</span>
+        </div>
+    </div>
+            <p class="card-text text-muted"><span id="user-name">John Doe</span></p>
+</div>
+<div class="container mt-5 admin-ticket">
+    <div class="card ticket-card">
+        <div class="card-header d-flex justify-content-between">
+            <span>Admin Name</span>
+        </div>
+        <div class="card-body">
+            <p class="card-text" id="ticket-description">This is a sample description of the ticket. It provides details about the issue or task at hand.</p>
+        <span>2024-06-26 15:34</span>
+        </div>
+    </div>
+</div>
+<div class="container mt-5 ticket-container">
+    <div class="card ticket-card">
+        <div class="card-header d-flex justify-content-between">
+            <div>
+                Ticket ID: <span id="ticket-id">12345</span>
+            </div>
+            <p class="card-text"><strong>Category Name:</strong> <span id="category-name">Technical Support</span></p>
+            <p class="card-text"><strong>Status:</strong> <span class="text-primary" id="ticket-status">Open</span></p>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" id="ticket-title">Sample Ticket Title</h5>
+            <p class="card-text" id="ticket-description">This is a sample description of the ticket. It provides details about the issue or task at hand.</p>
+            <span>2024-06-26 15:32</span>
+        </div>
+    </div>
+    <p class="card-text text-muted"><span id="user-name">John Doe</span></p>
+</div>
+<div class="fixed-bottom-form">
+    <form>
+        <div class="form-group">
+            <label for="response-text">Your Response</label>
+            <textarea class="form-control" id="response-text" rows="3"></textarea>
+        </div>
+        <button type="button" class="btn btn-danger" id="close-button">Close</button>
+        <button type="submit" class="btn btn-primary" id="send-reply-button">Send Reply</button>
+    </form>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Add margin-bottom dynamically to the last .ticket-card
+            $('.ticket-container:last').addClass('margin-bottom-10');
+        });
+    </script>
+}
