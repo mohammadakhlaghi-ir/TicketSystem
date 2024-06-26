@@ -1,0 +1,59 @@
+﻿@using Ticet.Core.DTOs;
+@model IEnumerable<TicketAdminViewModel>;
+@{
+    ViewData["Title"] = "List Tickets";
+}
+<div class="container">
+    <h2>List of Tickets</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Ticket ID</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Ticket Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in Model)
+            {
+                <tr>
+                    <th scope="row">@ticket.TicketId</th>
+                    <td>@ticket.UserId</td>
+                    <td>@ticket.TicketTitle</td>
+                    <td>@ticket.LastMessageTimestamp</td>
+                    <td>@ticket.CategoryName</td>
+                    <td id="status-@ticket.TicketId">@(ticket.Status ? "Open" : "Closed")</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">Open</button>
+                        @if (ticket.Status)
+                        {
+                            <button class="btn btn-danger " onclick="closeTicket(@ticket.TicketId, this)">Close</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <script>
+        function closeTicket(ticketId, button) {
+            $.ajax({
+                url: '@Url.Action("CloseTicket", "User")',
+                type: 'POST',
+                data: { ticketId: ticketId },
+                success: function () {
+                    $('#status-' + ticketId).text('Closed');
+                    $(button).hide();
+                },
+                error: function () {
+                    alert('Failed to close the ticket.');
+                }
+            });
+        }
+    </script>
+}

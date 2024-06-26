@@ -13,10 +13,13 @@ namespace Ticket.App.Controllers
     {
         private readonly IUserService _userService;
         private readonly ICategoryService _categoryService;
-        public AdminController(IUserService userService, ICategoryService categoryService)
+        private readonly ITicketService _ticketService;
+
+        public AdminController(IUserService userService, ICategoryService categoryService,ITicketService ticketService)
         {
             _userService = userService;
             _categoryService = categoryService;
+            _ticketService = ticketService;
         }
         [Route("ListUsers")]
         public IActionResult ListUsers()
@@ -169,6 +172,11 @@ namespace Ticket.App.Controllers
             _categoryService.DeleteCategory(id);
             return RedirectToAction("ListCategories");
         }
-
+        [Route("ListTickets")]
+        public IActionResult ListTickets()
+        {
+            var tickets = _ticketService.GetAllTicketsWithLastMessageTimestamp();
+            return View(tickets);
+        }
     }
 }

@@ -69,6 +69,22 @@ namespace Ticet.Core.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public IEnumerable<TicketAdminViewModel> GetAllTicketsWithLastMessageTimestamp()
+        {
+            var tickets = _context.Tickets
+                .Select(t => new TicketAdminViewModel
+                {
+                    TicketId = t.Id,
+                    TicketTitle = t.Title,
+                    CategoryName = t.Category.Name,
+                    Status = t.Status,
+                    UserId = t.UserId,
+                    LastMessageTimestamp = t.Messages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Timestamp
+                })
+                .ToList();
+
+            return tickets;
+        }
     }
 
 }
