@@ -8,6 +8,7 @@ using Ticket.Entity.Models;
 using Ticket.Entity;
 using Ticet.Core.DTOs;
 using Microsoft.EntityFrameworkCore;
+using Ticet.Core.Components;
 
 namespace Ticet.Core.Services
 {
@@ -85,6 +86,32 @@ namespace Ticet.Core.Services
 
             return tickets;
         }
-    }
+        public PagedResult<TicketAdminViewModel> GetPaginatedTickets(int page, int pageSize)
+        {
+            var ticketsQuery = _context.Tickets
+                .Select(t => new TicketAdminViewModel
+                {
+                    TicketId = t.Id,
+                    TicketTitle = t.Title,
+                    CategoryName = t.Category.Name,
+                    Status = t.Status,
+                    UserId = t.UserId,
+                    LastMessageTimestamp = t.Messages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Timestamp
+                });
 
+            var totalTickets = ticketsQuery.Count();
+
+            var tickets = ticketsQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResult<TicketAdminViewModel>
+            {
+                Items = tickets,
+                TotalCount = totalTickets
+            };
+        }
+
+    }
 }

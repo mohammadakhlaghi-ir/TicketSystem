@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ticet.Core.Components;
 using Ticet.Core.DTOs;
 
 namespace Ticet.Core.Interfaces
@@ -13,6 +14,7 @@ namespace Ticet.Core.Interfaces
         Task<IEnumerable<TicketViewModel>> GetUserTicketsWithDetailsAsync(int userId);
         Task<bool> CloseTicketAsync(int ticketId);
         IEnumerable<TicketAdminViewModel> GetAllTicketsWithLastMessageTimestamp();
+        PagedResult<TicketAdminViewModel> GetPaginatedTickets(int page, int pageSize);
 
     }
 }

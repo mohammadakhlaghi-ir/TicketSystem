@@ -173,10 +173,14 @@ namespace Ticket.App.Controllers
             return RedirectToAction("ListCategories");
         }
         [Route("ListTickets")]
-        public IActionResult ListTickets()
+        public IActionResult ListTickets(int page = 1, int pageSize = 10)
         {
-            var tickets = _ticketService.GetAllTicketsWithLastMessageTimestamp();
-            return View(tickets);
+            var paginatedTickets = _ticketService.GetPaginatedTickets(page, pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalCount = paginatedTickets.TotalCount;
+
+            return View(paginatedTickets.Items);
         }
     }
 }
