@@ -170,5 +170,19 @@ namespace Ticet.Core.Services
 
             return true;
         }
+        public async Task<bool> CloseTicketAsync(int ticketId, int userId)
+        {
+            var ticket = await _context.Tickets.FindAsync(ticketId);
+
+            if (ticket == null || ticket.UserId != userId)
+            {
+                return false;
+            }
+
+            ticket.Status = false;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

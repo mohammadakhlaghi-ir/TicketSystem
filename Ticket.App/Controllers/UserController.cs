@@ -106,5 +106,24 @@ namespace Ticket.App.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost]
+        [Route("CloseTicketUser")]
+        public async Task<IActionResult> CloseTicketUser(int ticketId)
+        {
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+
+            var result = await _ticketService.CloseTicketAsync(ticketId, userId);
+
+            if (result)
+            {
+                TempData["TicketClosed"] = true;
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

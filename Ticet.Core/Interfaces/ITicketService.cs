@@ -17,5 +17,6 @@ namespace Ticet.Core.Interfaces
         PagedResult<TicketAdminViewModel> GetPaginatedTickets(int page, int pageSize);
         Task<MyTicketViewModel> GetTicketWithDetailsAsync(int ticketId);
         Task<bool> AddMessageToTicketAsync(int ticketId, int userId, string content);
+        Task<bool> CloseTicketAsync(int ticketId, int userId);
     }
 }
