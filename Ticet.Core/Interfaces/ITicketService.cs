@@ -16,5 +16,6 @@ namespace Ticet.Core.Interfaces
         IEnumerable<TicketAdminViewModel> GetAllTicketsWithLastMessageTimestamp();
         PagedResult<TicketAdminViewModel> GetPaginatedTickets(int page, int pageSize);
         Task<MyTicketViewModel> GetTicketWithDetailsAsync(int ticketId);
+        Task<bool> AddMessageToTicketAsync(int ticketId, int userId, string content);
     }
 }

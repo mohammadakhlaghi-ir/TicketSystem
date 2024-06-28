@@ -2,6 +2,14 @@
 @model MyTicketViewModel
 @{
     ViewData["Title"] = "My Ticket";
+    var messageSent = TempData["MessageSent"] != null && (bool)TempData["MessageSent"];
+
+}
+@if (messageSent)
+{
+    <div id="success-message" class="alert alert-success" style="position: fixed; top: 10px; width: 85%; text-align: center; z-index: 9999;">
+        Your new message was successfully sent.
+    </div>
 }
 @foreach (var message in Model.Messages)
 {
@@ -38,7 +46,7 @@
 </div> *@
 
 <div class="fixed-bottom-form">
-    <form>
+    <form id="add-message-form">
         <div class="form-group">
             <label for="response-text">Your Response</label>
             <textarea class="form-control" id="response-text" rows="3"></textarea>
@@ -50,6 +58,24 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            $('#add-message-form').on('submit', function (e) {
+                e.preventDefault();
+
+                var ticketId = @Model.Id;
+                var content = $('#response-text').val();
+
+                $.ajax({
+                    url: '@Url.Action("AddMessage", "User")',
+                    type: 'POST',
+                    data: { ticketId: ticketId, content: content },
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Failed to send the reply.');
+                    }
+                });
+            });
             // Add margin-bottom dynamically to the last .ticket-container
             $('.ticket-container:last').addClass('margin-bottom-10');
         });

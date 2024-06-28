@@ -88,7 +88,23 @@ namespace Ticket.App.Controllers
             // Pass the ticket details to the view
             return View(ticket);
         }
+        [HttpPost]
+        [Route("AddMessage")]
+        public async Task<IActionResult> AddMessage(int ticketId, string content)
+        {
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
 
+            var result = await _ticketService.AddMessageToTicketAsync(ticketId, userId, content);
 
+            if (result)
+            {
+                TempData["MessageSent"] = true;
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

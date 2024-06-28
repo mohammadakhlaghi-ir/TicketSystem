@@ -148,5 +148,27 @@ namespace Ticet.Core.Services
 
             return ticket;
         }
+        public async Task<bool> AddMessageToTicketAsync(int ticketId, int userId, string content)
+        {
+            var ticket = await _context.Tickets.FindAsync(ticketId);
+
+            if (ticket == null || ticket.UserId != userId)
+            {
+                return false;
+            }
+
+            var message = new Message
+            {
+                Content = content,
+                Timestamp = DateTime.UtcNow,
+                TicketId = ticketId,
+                UserId = userId
+            };
+
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
