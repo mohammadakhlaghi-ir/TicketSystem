@@ -23,7 +23,7 @@
             <tbody>
                 @foreach (var ticket in Model)
                 {
-                    <tr>
+                    <tr class="@(!ticket.Status ? "text-muted" : "")">
                         <td>@ticket.Id</td>
                         <td>@ticket.Title</td>
                         <td>@ticket.LastMessageTimestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>

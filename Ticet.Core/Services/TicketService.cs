@@ -54,7 +54,7 @@ namespace Ticet.Core.Services
                     Status = t.Status,
                     LastMessageTimestamp = t.Messages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Timestamp,
                     CategoryName = t.Category.Name
-                });
+                }).OrderByDescending(t => t.LastMessageTimestamp); // Order by LastMessageTimestamp in descending order
 
             var totalCount = await query.CountAsync();
             var items = await query
@@ -160,7 +160,7 @@ namespace Ticet.Core.Services
             var message = new Message
             {
                 Content = content,
-                Timestamp = DateTime.UtcNow,
+                Timestamp = DateTime.Now,
                 TicketId = ticketId,
                 UserId = userId
             };
