@@ -92,7 +92,7 @@ namespace Ticet.Core.Services
                     UserId = t.UserId,
                     LastMessageTimestamp = t.Messages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Timestamp
                 })
-                .ToList();
+                .ToList().OrderByDescending(t => t.LastMessageTimestamp); // Order by LastMessageTimestamp in descending order;
 
             return tickets;
         }
@@ -114,7 +114,7 @@ namespace Ticet.Core.Services
             var tickets = ticketsQuery
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
+                .ToList().OrderByDescending(t => t.LastMessageTimestamp); // Order by LastMessageTimestamp in descending order;
 
             return new PagedResult<TicketAdminViewModel>
             {

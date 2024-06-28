@@ -182,5 +182,10 @@ namespace Ticket.App.Controllers
 
             return View(paginatedTickets.Items);
         }
+        [Route("UserTicket")]
+        public IActionResult UserTicket()
+        {
+            return View();
+        }
     }
 }

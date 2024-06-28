@@ -26,7 +26,7 @@
         <tbody>
             @foreach (var ticket in Model)
             {
-                <tr>
+                <tr class="@(!ticket.Status ? "text-muted" : "")">
                     <th scope="row">@ticket.TicketId</th>
                     <td>@ticket.UserId</td>
                     <td>@ticket.TicketTitle</td>
