@@ -23,4 +23,14 @@ namespace Ticet.Core.DTOs
         public int UserId { get; set; }
         public DateTime LastMessageTimestamp { get; set; }
     }
+    public class MyTicketViewModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string CategoryName { get; set; }
+        public bool Status { get; set; }
+        public int UserId { get; set; } 
+
+        public List<MessageViewModel> Messages { get; set; }
+    }
 }

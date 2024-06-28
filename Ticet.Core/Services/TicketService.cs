@@ -121,7 +121,32 @@ namespace Ticet.Core.Services
                 Items = tickets,
                 TotalCount = totalTickets
             };
-        }
 
+        }
+        public async Task<MyTicketViewModel> GetTicketWithDetailsAsync(int ticketId)
+        {
+            var ticket = await _context.Tickets
+                .Include(t => t.Category)
+                .Include(t => t.Messages)
+                    .ThenInclude(m => m.User)
+                .Where(t => t.Id == ticketId)
+                .Select(t => new MyTicketViewModel
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    CategoryName = t.Category.Name,
+                    Status = t.Status,
+                    UserId = t.UserId,
+                    Messages = t.Messages.OrderBy(m => m.Timestamp).Select(m => new MessageViewModel
+                    {
+                        Content = m.Content,
+                        Timestamp = m.Timestamp,
+                        UserName = m.User.Name
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            return ticket;
+        }
     }
 }

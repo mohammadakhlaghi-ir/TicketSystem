@@ -1,24 +1,31 @@
-﻿@{
+﻿@using Ticet.Core.DTOs
+@model MyTicketViewModel
+@{
     ViewData["Title"] = "My Ticket";
 }
-<div class="container mt-5">
-    <div class="card ticket-card">
-        <div class="card-header d-flex justify-content-between">
-            <div>
-            Ticket ID: <span id="ticket-id">12345</span>
+@foreach (var message in Model.Messages)
+{
+    <div class="container mt-5 ticket-container">
+        <div class="card ticket-card">
+            <div class="card-header d-flex justify-content-between">
+                <div>
+                    Ticket ID: <span id="ticket-id">@Model.Id</span>
+                </div>
+                <p class="card-text"><strong>Category Name:</strong> <span id="category-name">@Model.CategoryName</span></p>
+                <p class="card-text"><strong>Status:</strong>
+                    <span class="text-primary" id="ticket-status">@(Model.Status ? "Open" : "Closed")</span>
+                </p>
             </div>
-            <p class="card-text"><strong>Category Name:</strong> <span id="category-name">Technical Support</span></p>
-            <p class="card-text"><strong>Status:</strong> <span class="text-primary" id="ticket-status">Open</span></p>
+            <div class="card-body">
+                <h5 class="card-title" id="ticket-title">@Model.Title</h5>
+                <p class="card-text" id="ticket-description">@message.Content</p>
+                <span>@message.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</span>
+            </div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title" id="ticket-title">Sample Ticket Title</h5>
-            <p class="card-text" id="ticket-description">This is a sample description of the ticket. It provides details about the issue or task at hand.</p>
-        <span>2024-06-26 15:32</span>
-        </div>
+        <p class="card-text text-muted"><span id="user-name">@message.UserName</span></p>
     </div>
-            <p class="card-text text-muted"><span id="user-name">John Doe</span></p>
-</div>
-<div class="container mt-5 admin-ticket">
+}
+@* <div class="container mt-5 admin-ticket ticket-container">
     <div class="card ticket-card">
         <div class="card-header d-flex justify-content-between">
             <span>Admin Name</span>
@@ -28,24 +35,8 @@
         <span>2024-06-26 15:34</span>
         </div>
     </div>
-</div>
-<div class="container mt-5 ticket-container">
-    <div class="card ticket-card">
-        <div class="card-header d-flex justify-content-between">
-            <div>
-                Ticket ID: <span id="ticket-id">12345</span>
-            </div>
-            <p class="card-text"><strong>Category Name:</strong> <span id="category-name">Technical Support</span></p>
-            <p class="card-text"><strong>Status:</strong> <span class="text-primary" id="ticket-status">Open</span></p>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title" id="ticket-title">Sample Ticket Title</h5>
-            <p class="card-text" id="ticket-description">This is a sample description of the ticket. It provides details about the issue or task at hand.</p>
-            <span>2024-06-26 15:32</span>
-        </div>
-    </div>
-    <p class="card-text text-muted"><span id="user-name">John Doe</span></p>
-</div>
+</div> *@
+
 <div class="fixed-bottom-form">
     <form>
         <div class="form-group">

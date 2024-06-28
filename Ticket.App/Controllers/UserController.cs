@@ -69,10 +69,26 @@ namespace Ticket.App.Controllers
             return BadRequest();
         }
         [Route("MyTicket")]
-        public IActionResult MyTicket(int ticketId)
+        public async Task<IActionResult> MyTicket(int ticketId)
         {
             ViewData["HideFooter"] = true;
-            return View();
+
+            // Get the logged-in user's ID
+            int userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+
+            // Retrieve the ticket details along with the related messages
+            var ticket = await _ticketService.GetTicketWithDetailsAsync(ticketId);
+
+            // Check if the logged-in user is the owner of the ticket
+            if (ticket == null || ticket.UserId != userId)
+            {
+                return Unauthorized(); // Or you can return a view that indicates lack of permission
+            }
+
+            // Pass the ticket details to the view
+            return View(ticket);
         }
+
+
     }
 }

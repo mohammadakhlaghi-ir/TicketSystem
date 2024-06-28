@@ -15,6 +15,6 @@ namespace Ticet.Core.Interfaces
         Task<bool> CloseTicketAsync(int ticketId);
         IEnumerable<TicketAdminViewModel> GetAllTicketsWithLastMessageTimestamp();
         PagedResult<TicketAdminViewModel> GetPaginatedTickets(int page, int pageSize);
-
+        Task<MyTicketViewModel> GetTicketWithDetailsAsync(int ticketId);
     }
 }
