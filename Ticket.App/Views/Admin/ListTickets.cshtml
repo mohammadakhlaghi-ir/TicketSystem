@@ -34,7 +34,7 @@
                     <td>@ticket.CategoryName</td>
                     <td id="status-@ticket.TicketId">@(ticket.Status ? "Open" : "Closed")</td>
                     <td>
-                        <button type="button" class="btn btn-primary">Open</button>
+                        <a href="@Url.Action("UserTicket", new { ticketId = ticket.TicketId })" class="btn btn-primary">Open</a>
                         @if (ticket.Status)
                         {
                             <button class="btn btn-danger " onclick="closeTicket(@ticket.TicketId, this)">Close</button>

@@ -183,6 +183,13 @@ namespace Ticet.Core.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public TicketModel GetTicketById(int ticketId)
+        {
+            return _context.Tickets
+                           .Include(t => t.User)
+                           .Include(t => t.Category)
+                           .FirstOrDefault(t => t.Id == ticketId);
+        }
 
     }
 }

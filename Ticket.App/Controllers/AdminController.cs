@@ -183,9 +183,10 @@ namespace Ticket.App.Controllers
             return View(paginatedTickets.Items);
         }
         [Route("UserTicket")]
-        public IActionResult UserTicket()
+        public IActionResult UserTicket(int ticketId)
         {
-            return View();
+            var ticket = _ticketService.GetTicketById(ticketId);
+            return View(ticket);
         }
     }
 }

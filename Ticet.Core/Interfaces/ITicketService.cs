@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ticet.Core.Components;
 using Ticet.Core.DTOs;
+using Ticket.Entity.Models;
 
 namespace Ticet.Core.Interfaces
 {
@@ -18,5 +19,6 @@ namespace Ticet.Core.Interfaces
         Task<MyTicketViewModel> GetTicketWithDetailsAsync(int ticketId);
         Task<bool> AddMessageToTicketAsync(int ticketId, int userId, string content);
         Task<bool> CloseTicketAsync(int ticketId, int userId);
+        TicketModel GetTicketById(int ticketId);
     }
 }
