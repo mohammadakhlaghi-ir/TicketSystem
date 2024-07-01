@@ -1,4 +1,72 @@
-﻿@{
+﻿@using Ticet.Core.DTOs
+@model AdminTicketViewModel
+@{
     ViewData["Title"] = "User Ticket";
+    var messageSent = TempData["MessageSent"] != null && (bool)TempData["MessageSent"];
+    var ticketClosed = TempData["TicketClosed"] != null && (bool)TempData["TicketClosed"];
 }
-user ticket
+@if (messageSent)
+{
+    <div id="success-message" class="alert alert-success" style="position: fixed; top: 10px; width: 85%; text-align: center; z-index: 9999;">
+        Your new message was successfully sent.
+    </div>
+}
+@if (ticketClosed)
+{
+    <div id="success-message" class="alert alert-danger" style="position: fixed; top: 10px; width: 85%; text-align: center; z-index: 9999;">
+        The ticket has been successfully closed.
+    </div>
+}
+@foreach (var message in Model.Messages)
+{
+    <div class="container mt-5 ticket-container">
+        <div class="card ticket-card">
+            <div class="card-header d-flex justify-content-between">
+                <div>
+                    Ticket ID: <span id="ticket-id">@Model.Id</span>
+                </div>
+                <p class="card-text"><strong>Category Name:</strong> <span id="category-name">@Model.CategoryName</span></p>
+                <p class="card-text">
+                    <strong>Status:</strong>
+                    @if (Model.Status)
+                    {
+                        <span class="text-primary" id="ticket-status">Open</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger" id="ticket-status">Closed</span>
+                    }
+                </p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" id="ticket-title">@Model.Title</h5>
+                <p class="card-text" id="ticket-description">@message.Content</p>
+                <span>@message.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</span>
+            </div>
+
+        </div>
+        <p class="card-text text-muted"><span id="user-name">@message.UserName</span></p>
+    </div>
+}
+@if (Model.Status)
+{
+    <div class="fixed-bottom-form">
+        <form id="add-message-form">
+            <div class="form-group">
+                <label for="response-text">Your Response</label>
+                <textarea class="form-control" id="response-text" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-danger" id="close-button">Close</button>
+            <button type="submit" class="btn btn-primary" id="send-reply-button">Send Reply</button>
+            @Html.AntiForgeryToken()
+        </form>
+    </div>
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Add margin-bottom dynamically to the last .ticket-container
+            $('.ticket-container:last').addClass('margin-bottom-10');
+        });
+    </script>
+}

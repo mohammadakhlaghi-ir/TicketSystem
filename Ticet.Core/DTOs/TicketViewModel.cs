@@ -33,4 +33,19 @@ namespace Ticet.Core.DTOs
 
         public List<MessageViewModel> Messages { get; set; }
     }
+    public class AdminTicketViewModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string CategoryName { get; set; }
+        public bool Status { get; set; }
+        public List<AdminMessageViewModel> Messages { get; set; }
+    }
+
+    public class AdminMessageViewModel
+    {
+        public string Content { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string UserName { get; set; }
+    }
 }

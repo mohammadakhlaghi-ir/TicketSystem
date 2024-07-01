@@ -185,8 +185,15 @@ namespace Ticket.App.Controllers
         [Route("UserTicket")]
         public IActionResult UserTicket(int ticketId)
         {
+            ViewData["HideFooter"] = true;
             var ticket = _ticketService.GetTicketById(ticketId);
+            if (ticket == null)
+            {
+                // Handle the case where the ticket is not found
+                return NotFound();
+            }
             return View(ticket);
         }
+
     }
 }

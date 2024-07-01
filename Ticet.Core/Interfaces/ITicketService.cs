@@ -19,6 +19,6 @@ namespace Ticet.Core.Interfaces
         Task<MyTicketViewModel> GetTicketWithDetailsAsync(int ticketId);
         Task<bool> AddMessageToTicketAsync(int ticketId, int userId, string content);
         Task<bool> CloseTicketAsync(int ticketId, int userId);
-        TicketModel GetTicketById(int ticketId);
+        AdminTicketViewModel GetTicketById(int ticketId);
     }
 }

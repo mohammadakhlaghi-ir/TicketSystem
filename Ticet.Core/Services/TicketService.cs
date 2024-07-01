@@ -152,8 +152,15 @@ namespace Ticet.Core.Services
         {
             var ticket = await _context.Tickets.FindAsync(ticketId);
 
-            if (ticket == null || ticket.UserId != userId)
+            if (ticket == null)
             {
+                Console.WriteLine("Ticket not found.");
+                return false;
+            }
+
+            if (ticket.UserId != userId)
+            {
+                Console.WriteLine($"Unauthorized access. Ticket.UserId: {ticket.UserId}, UserId: {userId}");
                 return false;
             }
 
@@ -170,6 +177,7 @@ namespace Ticet.Core.Services
 
             return true;
         }
+
         public async Task<bool> CloseTicketAsync(int ticketId, int userId)
         {
             var ticket = await _context.Tickets.FindAsync(ticketId);
@@ -183,13 +191,39 @@ namespace Ticet.Core.Services
             await _context.SaveChangesAsync();
             return true;
         }
-        public TicketModel GetTicketById(int ticketId)
+        public AdminTicketViewModel GetTicketById(int ticketId)
         {
-            return _context.Tickets
-                           .Include(t => t.User)
-                           .Include(t => t.Category)
-                           .FirstOrDefault(t => t.Id == ticketId);
+            // Fetch the ticket from the database
+            var ticket = _context.Tickets
+                                 .Include(t => t.Category)
+                                 .Include(t => t.Messages)
+                                 .ThenInclude(m => m.User)
+                                 .FirstOrDefault(t => t.Id == ticketId);
+
+            if (ticket == null)
+            {
+                // Handle the case where the ticket is not found
+                return null;
+            }
+
+            // Map the TicketModel to AdminTicketViewModel
+            var ticketViewModel = new AdminTicketViewModel
+            {
+                Id = ticket.Id,
+                Title = ticket.Title,
+                CategoryName = ticket.Category.Name,
+                Status = ticket.Status,
+                Messages = ticket.Messages.Select(m => new AdminMessageViewModel
+                {
+                    Content = m.Content,
+                    Timestamp = m.Timestamp,
+                    UserName = m.User.Name
+                }).ToList()
+            };
+
+            return ticketViewModel;
         }
+
 
     }
 }
