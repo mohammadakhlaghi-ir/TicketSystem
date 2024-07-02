@@ -90,6 +90,32 @@
                     }
                 });
             });
+            $('#send-reply-button').on('click', function (e) {
+                e.preventDefault();
+
+                var ticketId = '@Model.Id';
+                var messageContent = $('#response-text').val();
+
+                $.ajax({
+                    url: '@Url.Action("AddMessage", "Admin")',
+                    type: 'POST',
+                    data: {
+                        ticketId: ticketId,
+                        content: messageContent,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Failed to send the message.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while sending the message.');
+                    }
+                });
+            });
         });
     </script>
 }

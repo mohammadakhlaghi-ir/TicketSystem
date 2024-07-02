@@ -209,5 +209,40 @@ namespace Ticket.App.Controllers
 
             return Json(new { success = true });
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddMessage(int ticketId, string content)
+        {
+            var userId = int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+            var user = _userService.GetUserById(userId); // Assuming you have a method to get the user by ID
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found." });
+            }
+
+            var ticket = _ticketService.GetTicketById(ticketId);
+            if (ticket == null)
+            {
+                return Json(new { success = false, message = "Ticket not found." });
+            }
+
+            var message = new Message
+            {
+                Content = content,
+                Timestamp = DateTime.Now,
+                TicketId = ticketId,
+                UserId = userId
+            };
+
+            _ticketService.AddMessage(message); // Assuming you have an AddMessage method in your service
+
+            return Json(new
+            {
+                success = true,
+                messageContent = message.Content,
+                timestamp = message.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"),
+                userName = user.Name
+            });
+        }
     }
 }
