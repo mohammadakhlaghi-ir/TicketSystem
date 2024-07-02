@@ -217,7 +217,9 @@ namespace Ticet.Core.Services
                 {
                     Content = m.Content,
                     Timestamp = m.Timestamp,
-                    UserName = m.User.Name
+                    UserName = m.User.Name,
+                    UserRoleName = m.User.RoleName // Map this property
+
                 }).ToList()
             };
 

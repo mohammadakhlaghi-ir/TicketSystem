@@ -15,7 +15,7 @@ namespace Ticket.App.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ITicketService _ticketService;
 
-        public AdminController(IUserService userService, ICategoryService categoryService,ITicketService ticketService)
+        public AdminController(IUserService userService, ICategoryService categoryService, ITicketService ticketService)
         {
             _userService = userService;
             _categoryService = categoryService;
@@ -206,7 +206,7 @@ namespace Ticket.App.Controllers
 
             ticket.Status = false;
             _ticketService.UpdateTicket(ticket); // Assuming you have an UpdateTicket method in your service
-
+            TempData["TicketClosed"] = true;
             return Json(new { success = true });
         }
         [HttpPost]
@@ -235,14 +235,15 @@ namespace Ticket.App.Controllers
             };
 
             _ticketService.AddMessage(message); // Assuming you have an AddMessage method in your service
-
+            TempData["MessageSent"] = true;
             return Json(new
             {
                 success = true,
                 messageContent = message.Content,
                 timestamp = message.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"),
                 userName = user.Name
-            });
+            }
+            );
         }
     }
 }

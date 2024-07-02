@@ -4,6 +4,7 @@
     ViewData["Title"] = "User Ticket";
     var messageSent = TempData["MessageSent"] != null && (bool)TempData["MessageSent"];
     var ticketClosed = TempData["TicketClosed"] != null && (bool)TempData["TicketClosed"];
+
 }
 @if (messageSent)
 {
@@ -19,7 +20,12 @@
 }
 @foreach (var message in Model.Messages)
 {
-    <div class="container mt-5 ticket-container">
+    var ticketContainerClass = "container mt-5 ticket-container";
+    if (message.UserRoleName == "Admin")
+    {
+        ticketContainerClass += " admin-ticket";
+    }
+    <div class="@ticketContainerClass">
         <div class="card ticket-card">
             <div class="card-header d-flex justify-content-between">
                 <div>
@@ -116,6 +122,12 @@
                     }
                 });
             });
+            // Hide success message after 3 seconds
+            setTimeout(function () {
+                $('#success-message').fadeOut('slow', function () {
+                    $(this).remove();
+                });
+            }, 3000)
         });
     </script>
 }
