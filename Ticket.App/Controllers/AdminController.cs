@@ -194,6 +194,20 @@ namespace Ticket.App.Controllers
             }
             return View(ticket);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CloseTicket(int ticketId)
+        {
+            var ticket = _ticketService.GetTicketById(ticketId);
+            if (ticket == null)
+            {
+                return Json(new { success = false, message = "Ticket not found." });
+            }
 
+            ticket.Status = false;
+            _ticketService.UpdateTicket(ticket); // Assuming you have an UpdateTicket method in your service
+
+            return Json(new { success = true });
+        }
     }
 }

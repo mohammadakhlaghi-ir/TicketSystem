@@ -20,5 +20,6 @@ namespace Ticet.Core.Interfaces
         Task<bool> AddMessageToTicketAsync(int ticketId, int userId, string content);
         Task<bool> CloseTicketAsync(int ticketId, int userId);
         AdminTicketViewModel GetTicketById(int ticketId);
+        void UpdateTicket(AdminTicketViewModel ticket);
     }
 }

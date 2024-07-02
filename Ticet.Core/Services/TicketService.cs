@@ -223,7 +223,15 @@ namespace Ticet.Core.Services
 
             return ticketViewModel;
         }
-
+        public void UpdateTicket(AdminTicketViewModel ticket)
+        {
+            var existingTicket = _context.Tickets.Find(ticket.Id);
+            if (existingTicket != null)
+            {
+                existingTicket.Status = ticket.Status;
+                _context.SaveChanges();
+            }
+        }
 
     }
 }

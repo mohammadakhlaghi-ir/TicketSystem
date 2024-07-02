@@ -67,6 +67,29 @@
         $(document).ready(function () {
             // Add margin-bottom dynamically to the last .ticket-container
             $('.ticket-container:last').addClass('margin-bottom-10');
+            $('#close-button').on('click', function () {
+                var ticketId = '@Model.Id';
+
+                $.ajax({
+                    url: '@Url.Action("CloseTicket", "Admin")',
+                    type: 'POST',
+                    data: {
+                        ticketId: ticketId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            // Update the ticket status on the page
+                            location.reload();
+                        } else {
+                            alert('Failed to close the ticket.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while closing the ticket.');
+                    }
+                });
+            });
         });
     </script>
 }
