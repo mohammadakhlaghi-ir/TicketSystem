@@ -3,6 +3,66 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4"> Ticket Project Mohammad Akhlaghi</h1>
+    <p>This site used for the Ticket between Admins and Users , the content and summary of the project : </p>
+    <h3>Roles :</h3>
+    <p>Roles are craeted by 2 type :</p>
+    <p>
+        1. Admin :Admins can manage the categories and manage the users and manage the tickets.
+        <br />
+        2. User :Users can manage owner ticket and edit their profile.
+    </p>
+    <h3>Category :</h3>
+    <p>Categories are created by an ID and a name.Admin can modify or create or delete the categories.</p>
+    <h3>Ticket :</h3>
+    <p>Tickets are created by Users, the messages of the ticket and create by any Admin and user owner of the Ticket. <br />
+    The User can send unlimited messages and Close the Ticket. if the ticket be closed , the user or admins can not send any messages for that ticket.<br />
+    The Admins Can see the list of tickets and their status , their user owner id and the date or time of messages and tickets.<br />
+    The Admins Can Close the ticket or send reply messages for that user message of that ticket.
+    </p>
+    <h3>Users</h3>
+    <p>The users can register or login to the site and can edit their user name or password and can logout of the site any time.
+        <br />
+        The Admins can modify the users information or change role name of the users to the admin or to the users and can delete any userid.
+    </p>
+    <h3>Project Layaers</h3>
+    <p>The project developed by 3 layars:
+        <br />
+        1- Ticket.App : This is the main Layer project and included Controllers , Views , main class Program.
+        <br />
+        2- Ticket.Entity : This is the entity layer had connection by the Sql server and developed by the EFCore and included Models and Context Class to Configure the models on database.
+        <br />
+        3-Ticket.Core : This is the all services and interfaces and view models and permission configure and another components for the project.
+    </p>
+    <h3>Ticket.App :</h3>
+    <p>included Controllers and Views and Migrations files and Program.cs file.
+        <br />
+        Controllers : 
+        <br />
+        Controllers are "Account" , "Admin" , "Home" , "User".
+        <br />
+        Account are included actions : Login - Logout - Register - Edit profile - dashboard - access .
+        <br />
+        Admin are included actions : List Users - delete user - edit user - create category - edit category- delete category - list categories - list tickets - close ticket - add message - user ticket
+        <br />
+        Home just showed home page
+        <br />
+        User are included actions : create ticket - my ticket - my tickets add message - close ticket.
+        <br />
+        Views : 
+        <br />
+        views of all actions  of controllers with Razor page. the _Layout is main layout of the site for all pages .
+        <br />
+        Migrations : 
+        <br />
+        included history files on sql migrations and connections.
+        <br />
+        Program:
+        <br />
+        included all configure and middlewares of authentication , using services , using context , name of connection string of application.json , all scopes of controller and interfaces and services ,....
+        <br />
+        wwroot:
+        <br />
+        using JQ and BS libraries and define custom site.css file for style sheet of the site.
+    </p>
 </div>
