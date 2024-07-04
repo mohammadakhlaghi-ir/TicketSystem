@@ -141,7 +141,9 @@ namespace Ticet.Core.Services
                     {
                         Content = m.Content,
                         Timestamp = m.Timestamp,
-                        UserName = m.User.Name
+                        UserName = m.User.Name,
+                        RoleName = m.User.RoleName, 
+
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();

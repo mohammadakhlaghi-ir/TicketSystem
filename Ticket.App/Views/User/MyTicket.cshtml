@@ -19,14 +19,17 @@
 }
 @foreach (var message in Model.Messages)
 {
-    <div class="container mt-5 ticket-container">
+    <div class="container mt-5 ticket-container @if(message.RoleName == "Admin") {
+ <text>admin-ticket</text>
+ }">
         <div class="card ticket-card">
             <div class="card-header d-flex justify-content-between">
                 <div>
                     Ticket ID: <span id="ticket-id">@Model.Id</span>
                 </div>
                 <p class="card-text"><strong>Category Name:</strong> <span id="category-name">@Model.CategoryName</span></p>
-                <p class="card-text"><strong>Status:</strong>
+                <p class="card-text">
+                    <strong>Status:</strong>
                     @if (Model.Status)
                     {
                         <span class="text-primary" id="ticket-status">Open</span>
@@ -46,17 +49,6 @@
         <p class="card-text text-muted"><span id="user-name">@message.UserName</span></p>
     </div>
 }
-@* <div class="container mt-5 admin-ticket ticket-container">
-    <div class="card ticket-card">
-        <div class="card-header d-flex justify-content-between">
-            <span>Admin Name</span>
-        </div>
-        <div class="card-body">
-            <p class="card-text" id="ticket-description">This is a sample description of the ticket. It provides details about the issue or task at hand.</p>
-        <span>2024-06-26 15:34</span>
-        </div>
-    </div>
-</div> *@
 @if (Model.Status)
 {
     <div class="fixed-bottom-form">
