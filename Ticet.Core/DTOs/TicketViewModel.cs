@@ -39,7 +39,7 @@ namespace Ticet.Core.DTOs
         public string Title { get; set; }
         public string CategoryName { get; set; }
         public bool Status { get; set; }
-        public List<AdminMessageViewModel> Messages { get; set; }
+        public List<MessageViewModel> Messages { get; set; }
     }
 
    

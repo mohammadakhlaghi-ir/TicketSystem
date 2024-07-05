@@ -215,12 +215,12 @@ namespace Ticet.Core.Services
                 Title = ticket.Title,
                 CategoryName = ticket.Category.Name,
                 Status = ticket.Status,
-                Messages = ticket.Messages.Select(m => new AdminMessageViewModel
+                Messages = ticket.Messages.Select(m => new MessageViewModel
                 {
                     Content = m.Content,
                     Timestamp = m.Timestamp,
                     UserName = m.User.Name,
-                    UserRoleName = m.User.RoleName // Map this property
+                    RoleName = m.User.RoleName // Map this property
 
                 }).ToList()
             };

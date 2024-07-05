@@ -13,12 +13,4 @@ namespace Ticet.Core.DTOs
         public string UserName { get; set; }
         public string RoleName { get; set; } 
     }
-    public class AdminMessageViewModel
-    {
-        public string Content { get; set; }
-        public DateTime Timestamp { get; set; }
-        public string UserName { get; set; }
-        public string UserRoleName { get; set; }
-
-    }
 }

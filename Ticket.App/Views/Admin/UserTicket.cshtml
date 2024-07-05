@@ -21,7 +21,7 @@
 @foreach (var message in Model.Messages)
 {
     var ticketContainerClass = "container mt-5 ticket-container";
-    if (message.UserRoleName == "Admin")
+    if (message.RoleName == "Admin")
     {
         ticketContainerClass += " admin-ticket";
     }
