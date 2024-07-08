@@ -9,11 +9,11 @@ using Ticket.Entity;
 
 #nullable disable
 
-namespace Ticket.App.Migrations
+namespace Ticket.Entity.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240626155912_removedescTicket")]
-    partial class removedescTicket
+    [Migration("20240708173503_addapi")]
+    partial class addapi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,6 +82,9 @@ namespace Ticket.App.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()

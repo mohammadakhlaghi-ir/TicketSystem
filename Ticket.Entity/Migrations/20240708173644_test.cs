@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Ticket.App.Migrations
+namespace Ticket.Entity.Migrations
 {
     /// <inheritdoc />
     public partial class test : Migration

@@ -9,11 +9,11 @@ using Ticket.Entity;
 
 #nullable disable
 
-namespace Ticket.App.Migrations
+namespace Ticket.Entity.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240626184016_switchHome")]
-    partial class switchHome
+    [Migration("20240708173644_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

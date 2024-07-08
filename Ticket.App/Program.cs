@@ -48,8 +48,8 @@ public class Program
                         services.AddScoped<HomeController>();
                         services.AddScoped<AccountController>();
                         services.AddDbContext<Context>(options =>
-                              options.UseSqlServer(context.Configuration.GetConnectionString("ConnectionString"),
-                                  sqlOptions => sqlOptions.MigrationsAssembly("Ticket.App")));
+                              options.UseSqlServer(context.Configuration.GetConnectionString("ConnectionString")
+                               ));
                         services.AddScoped<IUserService, UserService>();
                         services.AddScoped<ICategoryService, CategoryService>();
 						services.AddScoped<ITicketService, TicketService>();
