@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { View, Text, Button } from 'react-native';
 import styles from '../styles/main';
 
-const DashboardScreen = ({ navigation }) => {
+const DashboardScreen = ({ navigation, isAuthenticated }) => {
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigation.navigate("Login");
+    }
+  }, [isAuthenticated]);
   return (
     <View style={styles.container}>
       <Text>Dashboard Page</Text>
