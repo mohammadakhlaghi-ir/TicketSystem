@@ -17,11 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ticet.Core\Ticet.Core.csproj" />
     <ProjectReference Include="..\Ticket.Entity\Ticket.Entity.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

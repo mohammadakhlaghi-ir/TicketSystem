@@ -36,7 +36,7 @@ namespace Ticket.Entity.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Ticket.Entity.Models.Message", b =>
@@ -66,7 +66,7 @@ namespace Ticket.Entity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("Ticket.Entity.Models.TicketModel", b =>
@@ -96,7 +96,7 @@ namespace Ticket.Entity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("Ticket.Entity.Models.User", b =>
@@ -121,7 +121,7 @@ namespace Ticket.Entity.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
