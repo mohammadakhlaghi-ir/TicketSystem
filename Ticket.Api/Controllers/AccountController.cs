@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
 using Ticet.Core.DTOs;
 using Ticet.Core.Interfaces;
 
@@ -13,21 +14,17 @@ namespace Ticket.Api.Controllers
         {
             _userService = userService;
         }
-        [HttpPost]
-        public IActionResult Login([FromBody] LoginViewModel loginModel)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginViewModel model)
         {
-            if (loginModel == null || string.IsNullOrEmpty(loginModel.Name) || string.IsNullOrEmpty(loginModel.Password))
-            {
-                return BadRequest("Invalid client request");
-            }
-
-            var user = _userService.Authenticate(loginModel.Name, loginModel.Password);
+            var user = _userService.Authenticate(model.Name, model.Password);
 
             if (user == null)
             {
-                return Unauthorized();
+                return BadRequest(new { message = "Username or password is incorrect" });
             }
 
+            // Authentication successful
             return Ok(new { RoleName = user.RoleName });
         }
     }

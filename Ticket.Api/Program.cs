@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Ticet.Core.Interfaces;
+using Ticet.Core.Services;
+using Ticket.Api.Controllers;
 using Ticket.Entity; // Replace with the actual namespace of your Context and Models
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"))
 );
-
+builder.Services.AddScoped<AccountController>();
+builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
