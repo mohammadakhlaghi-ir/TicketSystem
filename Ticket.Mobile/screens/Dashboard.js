@@ -1,18 +1,29 @@
-import React, { useEffect } from "react";
-import { View, Text, Button } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from '../styles/main';
 
 const DashboardScreen = ({ navigation, isAuthenticated }) => {
+  const [roleName, setRoleName] = useState("");
+
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigation.navigate("Login");
-    }
-  }, [isAuthenticated]);
+    const fetchRoleName = async () => {
+      const storedRoleName = await AsyncStorage.getItem("roleName");
+      if (storedRoleName) {
+        setRoleName(storedRoleName);
+      }
+    };
+    fetchRoleName();
+  }, []);
   return (
     <View style={styles.container}>
-      <Text>Dashboard Page</Text>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-    </View>
+    <Text style={styles.label}>Dashboard</Text>
+    {roleName ? (
+      <Text style={styles.roleName}>Role: {roleName}</Text>
+    ) : (
+      <Text>Loading...</Text>
+    )}
+  </View>
   );
 };
 
