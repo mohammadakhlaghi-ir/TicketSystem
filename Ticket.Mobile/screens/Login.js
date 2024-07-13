@@ -1,57 +1,53 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import styles from '../styles/main';
+import styles from "../styles/main";
 
 const LoginScreen = ({ navigation }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const apiUrl = 'http://192.168.1.10:7246/api/account/login';
 
+ 
   const handleLogin = async () => {
     try {
-      const response = await fetch("https://localhost:7246/api/account/login", {
-        method: "POST",
+      const response = await fetch(apiUrl, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name: username, password: password }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      if (data.roleName) {
-        await AsyncStorage.setItem("roleName", data.roleName);
-        navigation.navigate("Dashboard");
+      if (response.ok) {
+        const data = await response.json();
+        await AsyncStorage.setItem('userToken', data.Token);
+        await AsyncStorage.setItem('roleName', data.RoleName);
+        navigation.navigate('Dashboard');
       } else {
-        Alert.alert("Login failed", "Username or password is incorrect");
+        Alert.alert('Login failed', 'Username or password is incorrect');
       }
     } catch (error) {
-      console.error("Error:", error.message);
-      Alert.alert("Login failed", "An error occurred. Please try again.");
+      console.error(error);
+      Alert.alert('Login failed', 'An error occurred');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Username</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter your username"
-        value={username}
+      <Text>Login Page</Text>
+      <TextInput 
+        placeholder="Username" 
+        value={username} 
         onChangeText={setUsername}
-      />
-      <Text style={styles.label}>Password</Text>
-      <TextInput
         style={styles.input}
-        placeholder="Enter your password"
-        secureTextEntry
-        value={password}
+      />
+      <TextInput 
+        placeholder="Password" 
+        value={password} 
         onChangeText={setPassword}
+        secureTextEntry
+        style={styles.input}
       />
       <Button title="Login" onPress={handleLogin} />
     </View>

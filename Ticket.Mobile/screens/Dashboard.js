@@ -8,22 +8,17 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
 
   useEffect(() => {
     const fetchRoleName = async () => {
-      const storedRoleName = await AsyncStorage.getItem("roleName");
-      if (storedRoleName) {
-        setRoleName(storedRoleName);
-      }
+      const storedRoleName = await AsyncStorage.getItem('roleName');
+      setRoleName(storedRoleName);
     };
+
     fetchRoleName();
   }, []);
   return (
     <View style={styles.container}>
-    <Text style={styles.label}>Dashboard</Text>
-    {roleName ? (
-      <Text style={styles.roleName}>Role: {roleName}</Text>
-    ) : (
-      <Text>Loading...</Text>
-    )}
-  </View>
+      <Text>Dashboard</Text>
+      <Text>Role: {roleName}</Text>
+    </View>
   );
 };
 
