@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from '../styles/main';
+import { CommonActions } from '@react-navigation/native';
 
 const DashboardScreen = ({ navigation, isAuthenticated }) => {
   const [roleName, setRoleName] = useState("");
@@ -14,10 +15,21 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
 
     fetchRoleName();
   }, []);
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('userToken');
+    await AsyncStorage.removeItem('roleName');
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      })
+    );
+  };
   return (
     <View style={styles.container}>
       <Text>Dashboard</Text>
-      <Text>Role: {roleName}</Text>
+      <Text>Hi {roleName} !</Text>
+      <Button title="Logout" onPress={handleLogout} />
     </View>
   );
 };
