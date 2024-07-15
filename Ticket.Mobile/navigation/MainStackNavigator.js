@@ -24,7 +24,6 @@ const MainStackNavigator = () => {
   }, []);
 
   if (isLoggedIn === null) {
-    // Optionally, you can add a loading screen here
     return null;
   }
   return (
