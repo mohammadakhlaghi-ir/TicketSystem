@@ -29,7 +29,6 @@ const LoginScreen = ({ navigation }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("API Response:", data); // Log the response data
 
         if (data.token) {
           await AsyncStorage.setItem("userToken", data.token);
