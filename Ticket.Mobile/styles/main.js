@@ -25,5 +25,15 @@ export default StyleSheet.create({
   },
   buttonContainer:{
     marginHorizontal:10,
+  },
+  btnWarning:{
+    backgroundColor:'#ffc107',
+    borderRadius:5,
+    alignItems:'center'
+  },
+  textBtn:{
+    color:'white',
+    padding:10,
+    paddingHorizontal:20
   }
 });

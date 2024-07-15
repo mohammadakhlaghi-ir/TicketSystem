@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../styles/main";
 import { CommonActions } from "@react-navigation/native";
@@ -34,14 +34,12 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
               <Button
                 title="List Users"
                 onPress={() => navigation.navigate("ListUsers")}
-                style={styles.row_button}
               />
             </View>
             <View style={styles.buttonContainer}>
               <Button
                 title="List Tickets"
                 onPress={() => navigation.navigate("ListTickets")}
-                style={styles.row_button}
               />
             </View>
           </View>
@@ -50,19 +48,17 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
     } else {
       return (
         <>
-         <View style={styles.row}>
+          <View style={styles.row}>
             <View style={styles.buttonContainer}>
               <Button
                 title="Create Ticket"
                 onPress={() => navigation.navigate("CreateTicket")}
-                style={styles.row_button}
               />
             </View>
             <View style={styles.buttonContainer}>
               <Button
                 title="Edit Account"
                 onPress={() => navigation.navigate("EditAccount")}
-                style={styles.row_button}
               />
             </View>
           </View>
@@ -72,10 +68,11 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
   };
   return (
     <View style={styles.container}>
-      <Text>Dashboard</Text>
       <Text>Hi {roleName} !</Text>
       {renderButtons()}
-      <Button title="Logout" onPress={handleLogout} />
+      <TouchableOpacity style={styles.btnWarning} onPress={handleLogout}>
+        <Text style={styles.textBtn}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeScreen from "../screens/Home";
 import DashboardScreen from "../screens/Dashboard";
 import LoginScreen from "../screens/Login";
+import ListUsersScreen from "../screens/Admin/ListUsers";
 
 const Stack = createNativeStackNavigator();
 const isAuthenticated = async () => {
@@ -32,6 +33,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen}/>
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="ListUsers" component={ListUsersScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
