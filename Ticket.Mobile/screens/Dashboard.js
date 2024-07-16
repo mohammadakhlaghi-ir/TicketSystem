@@ -6,18 +6,22 @@ import { CommonActions } from "@react-navigation/native";
 import colors from "../styles/colors";
 const DashboardScreen = ({ navigation, isAuthenticated }) => {
   const [roleName, setRoleName] = useState("");
+  const [authenticatedUserId, setAuthenticatedUserId] = useState(null); // State to hold authenticated user ID
 
   useEffect(() => {
-    const fetchRoleName = async () => {
+    const fetchRoleAndUserId = async () => {
       const storedRoleName = await AsyncStorage.getItem("roleName");
       setRoleName(storedRoleName);
+      // Example: Fetching authenticated user ID
+      const storedUserId = await AsyncStorage.getItem("userId");
+      setAuthenticatedUserId(storedUserId);
     };
-
-    fetchRoleName();
+    fetchRoleAndUserId();
   }, []);
   const handleLogout = async () => {
     await AsyncStorage.removeItem("userToken");
     await AsyncStorage.removeItem("roleName");
+    await AsyncStorage.removeItem("userId"); // Remove authenticated user ID on logout
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
@@ -33,7 +37,11 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
             <View style={styles.buttonContainer}>
               <Button
                 title="List Users"
-                onPress={() => navigation.navigate("ListUsers")}
+                onPress={() =>
+                  navigation.navigate("ListUsers", {
+                    userId: authenticatedUserId,
+                  })
+                }
               />
             </View>
             <View style={styles.buttonContainer}>
@@ -70,7 +78,7 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
     <View style={styles.container}>
       <Text>Hi {roleName} !</Text>
       {renderButtons()}
-      <Button color={colors.warning} onPress={handleLogout} title="Logout"/>
+      <Button color={colors.warning} onPress={handleLogout} title="Logout" />
     </View>
   );
 };

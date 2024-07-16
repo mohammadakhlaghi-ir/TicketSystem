@@ -25,7 +25,9 @@ namespace Ticket.Api.Controllers
             }
 
             // Authentication successful
-            return Ok(new { RoleName = user.RoleName, Token = "user-specific-token" });
+            return Ok(new {
+                UserId = user.ID, // Ensure you include UserId if available
+                RoleName = user.RoleName, Token = "user-specific-token" });
         }
     }
 }

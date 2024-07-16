@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList,Button } from "react-native";
+import { View, Text, FlatList, Button } from "react-native";
 import styles from "../../styles/main";
 import axios from "axios";
 import primaryURL from "../../config";
 import colors from "../../styles/colors";
 
-const ListUsersScreen = ({ navigation }) => {
+const ListUsersScreen = ({ navigation, route }) => {
+  const { userId } = route.params; // Receive userId from navigation params
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,7 +16,6 @@ const ListUsersScreen = ({ navigation }) => {
     axios
       .get(apiUrl)
       .then((response) => {
-        console.log("API Response:", response.data); // Debug log
         setUsers(response.data);
         setLoading(false);
       })
@@ -25,25 +25,33 @@ const ListUsersScreen = ({ navigation }) => {
         setLoading(false);
       });
   }, []);
-  const renderItem = ({ item }) => (
-    <View style={styles.tableRow}>
-      <Text style={styles.tableCellText}>{item.id}</Text>
-      <Text style={styles.tableCellText}>{item.name}</Text>
-      <Text style={styles.tableCellText}>{item.roleName}</Text>
-      <View style={styles.actionCell}>
-        <Button
-          title="Edit"
-          onPress={() => handleEdit(item.id)}
-          color={colors.warning}
-        />
-        <Button
-          title="Delete"
-          onPress={() => handleDelete(item.id)}
-          color={colors.danger}
-        />
+  const renderItem = ({ item }) => {
+    // Convert userId to number for comparison
+    const userIdNumber = parseInt(userId, 10); // Ensure base 10 for integer parsing
+    // Check if current user is the authenticated user
+    const showDeleteButton = item.id !== userIdNumber;
+    return (
+      <View style={styles.tableRow}>
+        <Text style={styles.tableCellText}>{item.id}</Text>
+        <Text style={styles.tableCellText}>{item.name}</Text>
+        <Text style={styles.tableCellText}>{item.roleName}</Text>
+        <View style={styles.actionCell}>
+          <Button
+            title="Edit"
+            onPress={() => handleEdit(item.id)}
+            color={colors.warning}
+          />
+          {showDeleteButton && (
+            <Button
+              title="Delete"
+              onPress={() => handleDelete(item.id)}
+              color={colors.danger}
+            />
+          )}
+        </View>
       </View>
-    </View>
-  );
+    );
+  };
   if (loading) {
     return (
       <View style={styles.container}>

@@ -33,6 +33,11 @@ const LoginScreen = ({ navigation }) => {
         if (data.token) {
           await AsyncStorage.setItem("userToken", data.token);
           await AsyncStorage.setItem("roleName", data.roleName);
+          if (data.userId) {
+            await AsyncStorage.setItem("userId", data.userId.toString()); // Ensure userId is stored as string if necessary
+          } else {
+            console.warn("userId not found in API response:", data);
+          }
           navigation.navigate("Dashboard");
         } else {
           Alert.alert("Login failed", "Token is missing in the response");
