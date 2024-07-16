@@ -18,22 +18,46 @@ export default StyleSheet.create({
     borderRadius: 4,
   },
   row: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginVertical: 10,
+    alignItems: "center",
+  },
+  buttonContainer: {
+    marginHorizontal: 10,
+  },
+  table: {
+    width: "100%",
+    marginTop: 20,
+  },
+  tableHeader: {
+    flexDirection: "row",
+    backgroundColor: "#f1f1f1",
+  },
+  tableHeaderCell: {
+    flex: 1,
+    padding: 10,
+    fontWeight: "bold",
+  },
+  tableRow: {
+    flexDirection: "row",
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
+  },
+  tableCellText: {
+    flex: 1,
+    padding: 10,
+    color: "#000",
+    fontSize: 16,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  actionCell: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginVertical:10,
-    alignItems:"center"
+    justifyContent: 'space-around',
+    flex: 2,
+    padding: 10,
   },
-  buttonContainer:{
-    marginHorizontal:10,
-  },
-  btnWarning:{
-    backgroundColor:'#ffc107',
-    borderRadius:5,
-    alignItems:'center'
-  },
-  textBtn:{
-    color:'white',
-    padding:10,
-    paddingHorizontal:20
-  }
 });

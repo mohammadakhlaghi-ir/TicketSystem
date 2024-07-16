@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../styles/main";
 import { CommonActions } from "@react-navigation/native";
-
+import colors from "../styles/colors";
 const DashboardScreen = ({ navigation, isAuthenticated }) => {
   const [roleName, setRoleName] = useState("");
 
@@ -70,9 +70,7 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
     <View style={styles.container}>
       <Text>Hi {roleName} !</Text>
       {renderButtons()}
-      <TouchableOpacity style={styles.btnWarning} onPress={handleLogout}>
-        <Text style={styles.textBtn}>Logout</Text>
-      </TouchableOpacity>
+      <Button color={colors.warning} onPress={handleLogout} title="Logout"/>
     </View>
   );
 };
