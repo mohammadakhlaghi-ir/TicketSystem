@@ -11,4 +11,10 @@ namespace Ticet.Core.DTOs
     {
         public List<User> Users { get; set; }
     }
+    public class UserViewModel
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string RoleName { get; set; }
+    }
 }

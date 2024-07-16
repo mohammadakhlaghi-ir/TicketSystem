@@ -7,7 +7,7 @@ namespace Ticket.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
         public AccountController(IUserService userService)
