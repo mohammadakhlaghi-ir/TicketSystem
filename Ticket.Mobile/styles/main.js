@@ -10,13 +10,6 @@ export default StyleSheet.create({
     marginBottom: 8,
     fontSize: 16,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 8,
-    marginBottom: 16,
-    borderRadius: 4,
-  },
   row: {
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -74,4 +67,13 @@ export default StyleSheet.create({
     width: "70%",
     marginBottom: 10,
   },
+  mt1: {
+    marginTop: 10,
+  },
+  m1:{
+    margin:10
+  },
+  mb1:{
+    marginBottom:10
+  }
 });

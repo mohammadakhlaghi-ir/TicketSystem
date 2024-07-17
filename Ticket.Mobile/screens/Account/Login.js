@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, Text, TextInput, Button, Alert, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import styles from "../styles/main";
-import primaryURL from "../config";
+import styles from "../../styles/main";
+import primaryURL from "../../config";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -52,10 +52,12 @@ const LoginScreen = ({ navigation }) => {
       Alert.alert("Login failed", "An error occurred");
     }
   };
-
+  const navigateToRegister = () => {
+    navigation.navigate("Register");
+  };
   return (
     <View style={styles.container}>
-      <Text>Login Page</Text>
+      <Text style={styles.mb1}>Login Page</Text>
       <TextInput
         placeholder="Username"
         value={username}
@@ -70,6 +72,8 @@ const LoginScreen = ({ navigation }) => {
         style={styles.input}
       />
       <Button title="Login" onPress={handleLogin} />
+      <Text style={styles.m1}>Haven't an account ? You can Register Here !</Text>
+      <Button onPress={navigateToRegister} title="Register"></Button>
     </View>
   );
 };

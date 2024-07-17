@@ -3,10 +3,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeScreen from "../screens/Home";
-import DashboardScreen from "../screens/Dashboard";
-import LoginScreen from "../screens/Login";
+import DashboardScreen from "../screens/Account/Dashboard";
+import LoginScreen from "../screens/Account/Login";
 import ListUsersScreen from "../screens/Admin/ListUsers";
 import EditUserAdminScreen from "../screens/Admin/EditUser";
+import RegisterScreen from "../screens/Account/Register";
 
 const Stack = createNativeStackNavigator();
 const isAuthenticated = async () => {
@@ -33,6 +34,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen}/>
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="List Users" component={ListUsersScreen} />
         <Stack.Screen name="Edit User Admin" component={EditUserAdminScreen} />
       </Stack.Navigator>
