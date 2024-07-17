@@ -38,7 +38,7 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
               <Button
                 title="List Users"
                 onPress={() =>
-                  navigation.navigate("ListUsers", {
+                  navigation.navigate("List Users", {
                     userId: authenticatedUserId,
                   })
                 }

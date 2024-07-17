@@ -33,7 +33,7 @@ export default StyleSheet.create({
   tableHeader: {
     flexDirection: "row",
     backgroundColor: "#f1f1f1",
-    padding:10
+    padding: 10,
   },
   tableHeaderCell: {
     flex: 1,
@@ -60,5 +60,18 @@ export default StyleSheet.create({
     justifyContent: "space-around",
     flex: 2,
     padding: 10,
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    padding: 10,
+    width: "70%",
+  },
+  picker: {
+    height: 50,
+    width: "70%",
+    marginBottom: 10,
   },
 });

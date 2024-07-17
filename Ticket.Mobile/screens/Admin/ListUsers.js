@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, FlatList, Button } from "react-native";
 import styles from "../../styles/main";
 import axios from "axios";
 import primaryURL from "../../config";
 import colors from "../../styles/colors";
+import { useFocusEffect } from '@react-navigation/native';
 
 const ListUsersScreen = ({ navigation, route }) => {
   const { userId } = route.params; // Receive userId from navigation params
@@ -11,8 +12,9 @@ const ListUsersScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const apiUrl = `${primaryURL}/api/admin/users`;
-  useEffect(() => {
-    // Fetch users from the API
+
+   const fetchUsers = useCallback(() => {
+    setLoading(true);
     axios
       .get(apiUrl)
       .then((response) => {
@@ -24,7 +26,19 @@ const ListUsersScreen = ({ navigation, route }) => {
         setError(error);
         setLoading(false);
       });
-  }, []);
+  }, [apiUrl]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchUsers();
+    }, [fetchUsers])
+  );
+
+  const handleEdit = (id) => {
+    navigation.navigate('Edit User Admin', { userId: id });
+  };
+
+
   const renderItem = ({ item }) => {
     // Convert userId to number for comparison
     const userIdNumber = parseInt(userId, 10); // Ensure base 10 for integer parsing

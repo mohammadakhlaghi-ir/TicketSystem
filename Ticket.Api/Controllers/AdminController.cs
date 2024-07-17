@@ -27,6 +27,16 @@ namespace Ticket.Api.Controllers
 
             return Ok(users);
         }
+        [HttpGet("users/{id}")]
+        public IActionResult GetUserById(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+            return Ok(user);
+        }
         [HttpPut("update/{id}")]
         public IActionResult UpdateUser(int id, [FromBody] UpdateUserViewModel updateUserVM)
         {
