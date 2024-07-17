@@ -33,6 +33,7 @@ export default StyleSheet.create({
   tableHeader: {
     flexDirection: "row",
     backgroundColor: "#f1f1f1",
+    padding:10
   },
   tableHeaderCell: {
     flex: 1,
@@ -46,7 +47,7 @@ export default StyleSheet.create({
   },
   tableCellText: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     color: "#000",
     fontSize: 16,
   },
@@ -55,8 +56,8 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   actionCell: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     flex: 2,
     padding: 10,
   },

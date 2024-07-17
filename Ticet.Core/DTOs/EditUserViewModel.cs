@@ -13,4 +13,10 @@ namespace Ticet.Core.DTOs
         public string Password { get; set; }
         public string RoleName { get; set; }
     }
+    public class UpdateUserViewModel
+    {
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public string RoleName { get; set; }
+    }
 }

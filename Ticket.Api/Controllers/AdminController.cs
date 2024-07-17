@@ -27,5 +27,38 @@ namespace Ticket.Api.Controllers
 
             return Ok(users);
         }
+        [HttpPut("update/{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] UpdateUserViewModel updateUserVM)
+        {
+            if (updateUserVM == null)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var user = _userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            if (!string.IsNullOrEmpty(updateUserVM.Name))
+            {
+                user.Name = updateUserVM.Name;
+            }
+
+            if (!string.IsNullOrEmpty(updateUserVM.Password))
+            {
+                user.Password = updateUserVM.Password;
+            }
+
+            if (!string.IsNullOrEmpty(updateUserVM.RoleName))
+            {
+                user.RoleName = updateUserVM.RoleName;
+            }
+
+            _userService.UpdateUser(user);
+
+            return Ok("User updated successfully.");
+        }
     }
 }

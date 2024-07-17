@@ -75,6 +75,7 @@ const ListUsersScreen = ({ navigation, route }) => {
           <Text style={styles.tableHeaderCell}>ID</Text>
           <Text style={styles.tableHeaderCell}>Name</Text>
           <Text style={styles.tableHeaderCell}>Role Name</Text>
+          <Text style={styles.tableHeaderCell}>Action</Text>
         </View>
         <FlatList
           data={users}
