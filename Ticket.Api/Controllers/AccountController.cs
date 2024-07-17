@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ticet.Core.DTOs;
 using Ticet.Core.Interfaces;
+using Ticket.Entity.Models;
 
 namespace Ticket.Api.Controllers
 {
@@ -28,6 +29,25 @@ namespace Ticket.Api.Controllers
             return Ok(new {
                 UserId = user.ID, // Ensure you include UserId if available
                 RoleName = user.RoleName, Token = "user-specific-token" });
+        }
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new User
+            {
+                Name = model.Name,
+                Password = model.Password,
+                RoleName = "User"
+            };
+
+            await _userService.AddUserAsync(user);
+
+            return Ok(new { message = "User registered successfully" });
         }
     }
 }
