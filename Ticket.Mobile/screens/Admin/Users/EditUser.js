@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Button } from "react-native";
 import axios from "axios";
-import primaryURL from "../../config";
-import styles from "../../styles/main";
-import colors from "../../styles/colors";
+import primaryURL from "../../../config";
+import styles from "../../../styles/main";
+import colors from "../../../styles/colors";
 import { Picker } from '@react-native-picker/picker';
 
 const EditUserAdminScreen = ({ route, navigation }) => {

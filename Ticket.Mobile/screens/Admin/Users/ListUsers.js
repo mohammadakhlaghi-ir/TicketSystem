@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, FlatList, Button,Alert } from "react-native";
-import styles from "../../styles/main";
+import styles from "../../../styles/main";
 import axios from "axios";
-import primaryURL from "../../config";
-import colors from "../../styles/colors";
+import primaryURL from "../../../config";
+import colors from "../../../styles/colors";
 import { useFocusEffect } from '@react-navigation/native';
 
 const ListUsersScreen = ({ navigation, route }) => {
