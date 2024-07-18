@@ -101,5 +101,33 @@ namespace Ticket.Api.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpPut("UpdateCategory/{id}")]
+        public IActionResult UpdateCategory(int id, [FromBody] CategoryCreateModel categoryUpdateDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var category = _categoryService.GetCategoryById(id);
+            if (category == null)
+            {
+                return NotFound($"Category with ID {id} not found.");
+            }
+
+            category.Name = categoryUpdateDto.CategoryName;
+
+            try
+            {
+                _categoryService.UpdateCategory(category);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
+
+            return NoContent(); // 204 No Content
+        }
     }
 }
