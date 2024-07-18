@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, Alert } from 'react-native';
 import axios from 'axios';
-import primaryURL from '../../../config'; // Update with your API URL
+import primaryURL from '../../../config'; 
 import styles from '../../../styles/main';
 import colors from '../../../styles/colors';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 const ListCategoriesScreen = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigation = useNavigation(); // Initialize navigation hook
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [isFocused]);
 
   const fetchCategories = () => {
     setLoading(true);
@@ -26,6 +29,9 @@ const ListCategoriesScreen = () => {
         setError(error);
         setLoading(false);
       });
+  };
+  const handleEdit = (categoryId) => {
+    navigation.navigate('Edit Category', { categoryId });
   };
 
   const renderItem = ({ item }) => (

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using Ticet.Core.DTOs;
 using Ticet.Core.Interfaces;
 using Ticet.Core.Services;
@@ -128,6 +130,30 @@ namespace Ticket.Api.Controllers
             }
 
             return NoContent(); // 204 No Content
+        }
+        [HttpGet("categories/{id}")]
+        public IActionResult GetCategoryById(int id)
+        {
+            var category = _categoryService.GetCategoryById(id);
+
+            if (category == null)
+            {
+                return NotFound(); // Return 404 Not Found if category with given id is not found
+            }
+
+            var categoryInfo = new
+            {
+                CategoryId = category.Id,
+                CategoryName = category.Name,
+                Tickets = category.Tickets.Select(t => new
+                {
+                    TicketId = t.Id,
+                    TicketTitle = t.Title,
+                    Status = t.Status
+                })
+            };
+
+            return Ok(categoryInfo); // Return 200 OK with category info
         }
     }
 }
