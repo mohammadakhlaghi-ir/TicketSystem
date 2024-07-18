@@ -70,5 +70,19 @@ namespace Ticket.Api.Controllers
 
             return Ok("User updated successfully.");
         }
+        [HttpDelete("userDelete/{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            try
+            {
+                _userService.DeleteUser(id);
+                return NoContent(); // 204 No Content
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
