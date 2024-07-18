@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Ticet.Core.DTOs;
 using Ticet.Core.Interfaces;
+using Ticet.Core.Services;
 
 namespace Ticket.Api.Controllers
 {
@@ -9,9 +10,11 @@ namespace Ticket.Api.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IUserService _userService;
-        public AdminController(IUserService userService)
+        private readonly ICategoryService _categoryService;
+        public AdminController(IUserService userService, ICategoryService categoryService)
         {
             _userService = userService;
+            _categoryService = categoryService;
         }
         [HttpGet("users")]
         public IActionResult GetAllUsers()
@@ -77,6 +80,20 @@ namespace Ticket.Api.Controllers
             {
                 _userService.DeleteUser(id);
                 return NoContent(); // 204 No Content
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("categories")]
+        public IActionResult GetCategoriesWithTicketCount()
+        {
+            try
+            {
+                var categories = _categoryService.GetCategoriesWithTicketCount();
+                return Ok(categories);
             }
             catch (Exception ex)
             {
