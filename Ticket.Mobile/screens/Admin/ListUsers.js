@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, FlatList, Button } from "react-native";
+import { View, Text, FlatList, Button,Alert } from "react-native";
 import styles from "../../styles/main";
 import axios from "axios";
 import primaryURL from "../../config";
@@ -37,7 +37,33 @@ const ListUsersScreen = ({ navigation, route }) => {
   const handleEdit = (id) => {
     navigation.navigate('Edit User Admin', { userId: id });
   };
-
+  const handleDelete = (id) => {
+    Alert.alert(
+      "Delete User",
+      "Are you sure you want to delete this user?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () => {
+            axios
+              .delete(`${primaryURL}/api/admin/userDelete/${id}`)
+              .then(() => {
+                fetchUsers(); // Refetch the users after deletion
+              })
+              .catch((error) => {
+                console.error("There was an error deleting the user!", error);
+                setError(error);
+              });
+          }
+        }
+      ]
+    );
+  };
 
   const renderItem = ({ item }) => {
     // Convert userId to number for comparison
