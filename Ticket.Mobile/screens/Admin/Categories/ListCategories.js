@@ -37,6 +37,35 @@ const ListCategoriesScreen = () => {
   const handleCreate = () => {
     navigation.navigate("Create Category");
   };
+  const handleDelete = (categoryId) => {
+    Alert.alert(
+      'Confirm Delete',
+      'Are you sure you want to delete this category?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            axios
+              .delete(`${primaryURL}/api/admin/delete-category/${categoryId}`)
+              .then(() => {
+                // After successful deletion, refresh the category list
+                fetchCategories();
+                Alert.alert('Success', 'Category deleted successfully.');
+              })
+              .catch((error) => {
+                console.error('Error deleting category:', error);
+                Alert.alert('Error', 'Failed to delete category.');
+              });
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
   const renderItem = ({ item }) => (
     <View style={styles.tableRow}>
       <Text style={styles.tableCellText}>{item.id}</Text>
