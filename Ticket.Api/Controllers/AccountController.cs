@@ -49,5 +49,33 @@ namespace Ticket.Api.Controllers
 
             return Ok(new { message = "User registered successfully" });
         }
+        [HttpPut("update/{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] EditAccountViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = _userService.GetUserById(id); // Assuming this method exists in IUserService
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            user.Name = model.Name;
+            user.Password = model.Password;
+
+            try
+            {
+                _userService.UpdateUser(user); // Use the existing method to update the user
+                return Ok("User updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
