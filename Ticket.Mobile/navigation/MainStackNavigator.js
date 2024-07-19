@@ -10,6 +10,7 @@ import EditUserAdminScreen from "../screens/Admin/Users/EditUser";
 import RegisterScreen from "../screens/Account/Register";
 import ListCategoriesScreen from "../screens/Admin/Categories/ListCategories";
 import EditCategoryScreen from "../screens/Admin/Categories/EditCategory";
+import CreateCategoryScreen from "../screens/Admin/Categories/CreateCategory";
 
 const Stack = createNativeStackNavigator();
 const isAuthenticated = async () => {
@@ -41,6 +42,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Edit User Admin" component={EditUserAdminScreen} />
         <Stack.Screen name="List Categories" component={ListCategoriesScreen} />
         <Stack.Screen name="Edit Category" component={EditCategoryScreen} />
+        <Stack.Screen name="Create Category" component={CreateCategoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

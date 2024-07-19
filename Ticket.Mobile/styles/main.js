@@ -30,7 +30,7 @@ export default StyleSheet.create({
   },
   tableHeaderCell: {
     flex: 1,
-    padding: 10,
+    padding: 0,
     fontWeight: "bold",
   },
   tableRow: {
@@ -40,9 +40,9 @@ export default StyleSheet.create({
   },
   tableCellText: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     color: "#000",
-    fontSize: 16,
+    fontSize: 12,
   },
   title: {
     fontSize: 20,
