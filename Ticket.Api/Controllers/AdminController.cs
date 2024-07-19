@@ -171,5 +171,17 @@ namespace Ticket.Api.Controllers
 
             return Ok(category);
         }
+        [HttpDelete("delete-category/{id}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            var category = _categoryService.GetCategoryById(id); // Implement GetCategoryById if not exists
+            if (category == null)
+            {
+                return NotFound($"Category with ID {id} not found.");
+            }
+
+            _categoryService.DeleteCategory(id);
+            return NoContent(); // 204 No Content
+        }
     }
 }
