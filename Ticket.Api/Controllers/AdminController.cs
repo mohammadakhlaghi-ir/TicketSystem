@@ -155,5 +155,21 @@ namespace Ticket.Api.Controllers
 
             return Ok(categoryInfo); // Return 200 OK with category info
         }
+        [HttpPost("create-category")]
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryCreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var category = await _categoryService.CreateCategoryAsync(model.CategoryName);
+            if (category == null)
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
+
+            return Ok(category);
+        }
     }
 }
