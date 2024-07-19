@@ -66,7 +66,7 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
             <View style={styles.buttonContainer}>
               <Button
                 title="Edit Account"
-                onPress={() => navigation.navigate("EditAccount")}
+                onPress={() => navigation.navigate("Edit Account")}
               />
             </View>
           </View>
