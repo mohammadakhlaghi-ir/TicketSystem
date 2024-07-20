@@ -41,6 +41,12 @@ namespace Ticet.Core.DTOs
         public bool Status { get; set; }
         public List<MessageViewModel> Messages { get; set; }
     }
-
+    public class CreateTicketViewModel
+    {
+        public string Title { get; set; }
+        public string MessageContent { get; set; }
+        public int CategoryId { get; set; }
+        public int UserId { get; set; }
+    }
    
 }

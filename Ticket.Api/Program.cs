@@ -26,10 +26,11 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<AccountController>();
+builder.Services.AddScoped<UserController>();
 builder.Services.AddScoped<AdminController>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+builder.Services.AddScoped<ITicketService, TicketService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
