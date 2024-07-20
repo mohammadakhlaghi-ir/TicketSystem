@@ -60,7 +60,7 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
             <View style={styles.buttonContainer}>
               <Button
                 title="Create Ticket"
-                onPress={() => navigation.navigate("CreateTicket")}
+                onPress={() => navigation.navigate("Create Ticket")}
               />
             </View>
             <View style={styles.buttonContainer}>
