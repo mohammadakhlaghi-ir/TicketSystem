@@ -40,9 +40,9 @@ export default StyleSheet.create({
   },
   tableCellText: {
     flex: 1,
-    padding: 10,
+    padding: 8,
     color: "#000",
-    fontSize: 12,
+    fontSize: 10,
   },
   title: {
     fontSize: 20,
@@ -75,5 +75,15 @@ export default StyleSheet.create({
   },
   mb1:{
     marginBottom:10
-  }
+  },
+  pagination: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+  },
+  pageNumber: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    marginHorizontal:10
+  },
 });

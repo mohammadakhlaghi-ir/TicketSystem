@@ -50,6 +50,12 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
                 onPress={() => navigation.navigate("List Categories")}
               />
             </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="List Tickets"
+                onPress={() => navigation.navigate("List Tickets")}
+              />
+            </View>
           </View>
         </>
       );
