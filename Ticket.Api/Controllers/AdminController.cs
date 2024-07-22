@@ -13,10 +13,12 @@ namespace Ticket.Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly ICategoryService _categoryService;
-        public AdminController(IUserService userService, ICategoryService categoryService)
+        private readonly ITicketService _ticketService;
+        public AdminController(IUserService userService, ICategoryService categoryService, ITicketService ticketService)
         {
             _userService = userService;
             _categoryService = categoryService;
+            _ticketService = ticketService;
         }
         [HttpGet("users")]
         public IActionResult GetAllUsers()
@@ -182,6 +184,13 @@ namespace Ticket.Api.Controllers
 
             _categoryService.DeleteCategory(id);
             return NoContent(); // 204 No Content
+        }
+        [HttpGet("list-tickets")]
+        public IActionResult GetPaginatedTickets(int page = 1, int pageSize = 10)
+        {
+            var pagedResult = _ticketService.GetPaginatedTickets(page, pageSize);
+
+            return Ok(pagedResult);
         }
     }
 }
