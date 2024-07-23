@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "./colors";
 
 export default StyleSheet.create({
   container: {
@@ -52,7 +53,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     flex: 2,
-    padding: 10,
+    padding: 5,
   },
   input: {
     height: 40,
@@ -70,20 +71,33 @@ export default StyleSheet.create({
   mt1: {
     marginTop: 10,
   },
-  m1:{
-    margin:10
+  m1: {
+    margin: 10,
   },
-  mb1:{
-    marginBottom:10
+  mb1: {
+    marginBottom: 10,
   },
   pagination: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingVertical: 10,
   },
   pageNumber: {
-    textAlign: 'center',
-    alignSelf: 'center',
-    marginHorizontal:10
+    textAlign: "center",
+    alignSelf: "center",
+    marginHorizontal: 10,
   },
+  buttonDanger: {
+    backgroundColor: colors.danger,
+    borderRadius: 2,
+    padding: 5,
+  },
+  buttonText: {
+    color: "white",
+  },
+  buttonPrimary:{
+    backgroundColor: colors.primary,
+    borderRadius: 2,
+    padding: 5,
+  }
 });

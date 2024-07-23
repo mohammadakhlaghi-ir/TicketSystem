@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, Button, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Button,
+  ActivityIndicator,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import axios from "axios";
 import styles from "../../../styles/main";
 import primaryURL from "../../../config";
-import colors from "../../../styles/colors";
 import { formatDate } from "../../../components/dateUtils";
+
 const ListTicketsScreen = () => {
   const [tickets, setTickets] = useState([]);
   const [page, setPage] = useState(1);
@@ -27,6 +35,20 @@ const ListTicketsScreen = () => {
     }
     setIsLoading(false);
   };
+  const handleCloseTicket = async (ticketId) => {
+    try {
+      await axios.put(`${primaryURL}/api/admin/CloseTicket/${ticketId}`);
+      setTickets((prevTickets) =>
+        prevTickets.map((ticket) =>
+          ticket.ticketId === ticketId ? { ...ticket, status: false } : ticket
+        )
+      );
+      Alert.alert("Success", "The ticket has been closed.");
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Error", "An error occurred while closing the ticket.");
+    }
+  };
   const renderTicket = ({ item }) => (
     <View style={styles.tableRow}>
       <Text style={styles.tableCellText}>{item.ticketId}</Text>
@@ -35,19 +57,22 @@ const ListTicketsScreen = () => {
         {item.status ? "Open" : "Closed"}
       </Text>
       <Text style={styles.tableCellText}>{item.userId}</Text>
-      <Text style={styles.tableCellText}>{formatDate(item.lastMessageTimestamp)}</Text>
+      <Text style={styles.tableCellText}>
+        {formatDate(item.lastMessageTimestamp)}
+      </Text>
       <Text style={styles.tableCellText}>{item.categoryName}</Text>
       <View style={styles.actionCell}>
-        <Button
-          title="Open"
-          onPress={() => handleEdit(item.id)}
-          color={colors.warning}
-        />
-        <Button
-          title="Delete"
-          onPress={() => handleDelete(item.id)}
-          color={colors.danger}
-        />
+        <TouchableOpacity style={styles.buttonPrimary}>
+          <Text style={styles.buttonText}>Open</Text>
+        </TouchableOpacity>
+        {item.status && ( // Conditionally render the "Close" button
+        <TouchableOpacity
+          style={styles.buttonDanger}
+          onPress={() => handleCloseTicket(item.ticketId)}
+        >
+          <Text style={styles.buttonText}>Close</Text>
+        </TouchableOpacity>
+      )}
       </View>
     </View>
   );
