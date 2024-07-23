@@ -241,5 +241,14 @@ namespace Ticet.Core.Services
             _context.Messages.Add(message);
             _context.SaveChanges();
         }
+        public void ChangeTicketStatusToFalse(int ticketId)
+        {
+            var ticket = _context.Tickets.FirstOrDefault(t => t.Id == ticketId);
+            if (ticket != null)
+            {
+                ticket.Status = false;
+                _context.SaveChanges();
+            }
+        }
     }
 }

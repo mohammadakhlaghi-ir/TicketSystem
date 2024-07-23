@@ -192,5 +192,11 @@ namespace Ticket.Api.Controllers
 
             return Ok(pagedResult);
         }
+        [HttpPut("CloseTicket/{ticketId}")]
+        public IActionResult CloseTicket(int ticketId)
+        {
+            _ticketService.ChangeTicketStatusToFalse(ticketId);
+            return NoContent();
+        }
     }
 }
