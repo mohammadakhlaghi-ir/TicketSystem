@@ -99,5 +99,23 @@ export default StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 2,
     padding: 5,
-  }
+  },
+  messageContainer: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    padding: 10,
+  },
+  messageContent: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  messageDetails: {
+    fontSize: 12,
+    color: "#888",
+  },
+  ticketTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
 });

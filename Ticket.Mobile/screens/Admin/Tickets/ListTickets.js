@@ -12,8 +12,9 @@ import axios from "axios";
 import styles from "../../../styles/main";
 import primaryURL from "../../../config";
 import { formatDate } from "../../../components/dateUtils";
+import colors from "../../../styles/colors";
 
-const ListTicketsScreen = () => {
+const ListTicketsScreen = ({navigation}) => {
   const [tickets, setTickets] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,23 +63,28 @@ const ListTicketsScreen = () => {
       </Text>
       <Text style={styles.tableCellText}>{item.categoryName}</Text>
       <View style={styles.actionCell}>
-        <TouchableOpacity style={styles.buttonPrimary}>
+        <TouchableOpacity
+          style={styles.buttonPrimary}
+          onPress={() =>
+            navigation.navigate("Ticket", { ticketId: item.ticketId })
+          } // Pass ticketId to TicketScreen
+        >
           <Text style={styles.buttonText}>Open</Text>
         </TouchableOpacity>
         {item.status && ( // Conditionally render the "Close" button
-        <TouchableOpacity
-          style={styles.buttonDanger}
-          onPress={() => handleCloseTicket(item.ticketId)}
-        >
-          <Text style={styles.buttonText}>Close</Text>
-        </TouchableOpacity>
-      )}
+          <TouchableOpacity
+            style={styles.buttonDanger}
+            onPress={() => handleCloseTicket(item.ticketId)}
+          >
+            <Text style={styles.buttonText}>Close</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
   const renderFooter = () => {
     if (!isLoading) return null;
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <ActivityIndicator size="large" color={colors.primary} />;
   };
 
   const handleNextPage = () => {
