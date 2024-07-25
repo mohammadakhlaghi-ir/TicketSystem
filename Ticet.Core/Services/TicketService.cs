@@ -250,5 +250,38 @@ namespace Ticet.Core.Services
                 _context.SaveChanges();
             }
         }
+        public AdminTicketViewModel GetTicketMessagesById(int ticketId)
+        {
+            // Fetch the ticket from the database
+            var ticket = _context.Tickets
+                                 .Include(t => t.Category)
+                                 .Include(t => t.Messages)
+                                 .ThenInclude(m => m.User)
+                                 .FirstOrDefault(t => t.Id == ticketId);
+
+            if (ticket == null)
+            {
+                // Handle the case where the ticket is not found
+                return null;
+            }
+
+            // Map the TicketModel to TicketMessagesViewModel
+            var ticketMessagesViewModel = new AdminTicketViewModel
+            {
+                Id = ticket.Id,
+                Title = ticket.Title,
+                Status = ticket.Status,
+                CategoryName = ticket.Category.Name,
+                Messages = ticket.Messages.Select(m => new MessageViewModel
+                {
+                    Content = m.Content,
+                    Timestamp = m.Timestamp,
+                    UserName = m.User.Name,
+                    RoleName = m.User.RoleName
+                }).ToList()
+            };
+
+            return ticketMessagesViewModel;
+        }
     }
 }

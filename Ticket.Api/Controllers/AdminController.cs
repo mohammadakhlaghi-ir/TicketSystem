@@ -219,5 +219,17 @@ namespace Ticket.Api.Controllers
             _ticketService.AddMessage(message);
             return Ok("Message added successfully");
         }
+        [HttpGet("tickets/{ticketId}/messages")]
+        public ActionResult<AdminTicketViewModel> GetTicketMessages(int ticketId)
+        {
+            var ticketMessages = _ticketService.GetTicketMessagesById(ticketId);
+
+            if (ticketMessages == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ticketMessages);
+        }
     }
 }

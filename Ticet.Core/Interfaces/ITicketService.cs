@@ -23,5 +23,6 @@ namespace Ticet.Core.Interfaces
         void UpdateTicket(AdminTicketViewModel ticket);
         void AddMessage(Message message);
         void ChangeTicketStatusToFalse(int ticketId);
+        AdminTicketViewModel GetTicketMessagesById(int ticketId);
     }
 }
