@@ -41,7 +41,7 @@ export default StyleSheet.create({
   },
   tableCellText: {
     flex: 1,
-    padding: 8,
+    padding: 5,
     color: "#000",
     fontSize: 10,
   },
