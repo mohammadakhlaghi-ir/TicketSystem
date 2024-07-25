@@ -4,6 +4,7 @@ using System.Text.Json;
 using Ticet.Core.DTOs;
 using Ticet.Core.Interfaces;
 using Ticet.Core.Services;
+using Ticket.Entity.Models;
 
 namespace Ticket.Api.Controllers
 {
@@ -197,6 +198,26 @@ namespace Ticket.Api.Controllers
         {
             _ticketService.ChangeTicketStatusToFalse(ticketId);
             return NoContent();
+        }
+        [HttpPost("{ticketId}/messages")]
+        public IActionResult AddMessageToTicket(int ticketId, [FromBody] AddMessageViewModel model)
+        {
+            var user = _userService.GetUserById(model.UserId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var message = new Message
+            {
+                Content = model.Content,
+                Timestamp = DateTime.Now,
+                TicketId = ticketId,
+                UserId = model.UserId
+            };
+
+            _ticketService.AddMessage(message);
+            return Ok("Message added successfully");
         }
     }
 }
