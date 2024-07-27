@@ -138,7 +138,7 @@ export default StyleSheet.create({
   },
   ticketContainer: {
     padding: 16,
-    
+    flex:1
   },
   adminMessage:{
     marginLeft: '50%',
@@ -148,7 +148,6 @@ export default StyleSheet.create({
     borderTopColor: colors.grey,
     paddingVertical: 16,
     paddingHorizontal: 8,
-    backgroundColor: 'white',
     flex:1
     },
   textarea: {
@@ -157,8 +156,10 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     padding: 8,
-    marginBottom: 8,
+    margin: 8,
     textAlignVertical: 'top',
+    backgroundColor: 'white',
+
   },
   buttonContainerFooter: {
     flexDirection: 'row',

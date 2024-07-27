@@ -12,10 +12,12 @@ import primaryURL from "../../../config";
 import { formatDate } from "../../../components/dateUtils";
 import colors from "../../../styles/colors";
 import styles from "../../../styles/main";
+
 const TicketScreen = ({ route }) => {
   const { ticketId } = route.params;
   const [ticket, setTicket] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showFooter, setShowFooter] = useState(true); // State to control footer visibility
 
   useEffect(() => {
     const fetchTicketDetails = async () => {
@@ -35,6 +37,21 @@ const TicketScreen = ({ route }) => {
     fetchTicketDetails();
   }, [ticketId]);
 
+  const handleCloseTicket = async () => {
+    try {
+      await axios.put(`${primaryURL}/api/admin/CloseTicket/${ticketId}`);
+      // Update ticket status locally
+      setTicket((prevTicket) => ({
+        ...prevTicket,
+        status: false,
+      }));
+      setShowFooter(false); // Hide the footer after closing ticket
+    } catch (error) {
+      console.error(error);
+      // Handle error if needed
+    }
+  };
+  
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -52,8 +69,8 @@ const TicketScreen = ({ route }) => {
   }
 
   return (
-    <View style={styles.footer}>
-      <ScrollView style={styles.ticketContainer}>
+    <View style={styles.ticketContainer}>
+      <ScrollView >
         <View style={styles.ticketHeader}>
           <Text style={styles.ticketTitle}>{ticket.title}</Text>
           <Text style={styles.ticketCategory}>
@@ -80,6 +97,7 @@ const TicketScreen = ({ route }) => {
           ))}
         </View>
       </ScrollView>
+      {showFooter && ( // Conditional rendering based on showFooter state
       <View style={styles.footer}>
         <TextInput
           style={styles.textarea}
@@ -92,12 +110,13 @@ const TicketScreen = ({ route }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.buttonDanger, styles.mt1]}
-           
+            onPress={handleCloseTicket} // Call handleCloseTicket on button press
           >
             <Text style={styles.buttonText }>Close</Text>
           </TouchableOpacity>
         </View>
       </View>
+       )}
     </View>
   );
 };

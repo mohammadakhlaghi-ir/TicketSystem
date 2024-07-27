@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -13,15 +13,19 @@ import primaryURL from "../../../config";
 import { formatDate } from "../../../components/dateUtils";
 import colors from "../../../styles/colors";
 import styles from "../../../styles/main"
+import { useFocusEffect } from '@react-navigation/native';
+
 const ListTicketsScreen = ({navigation}) => {
   const [tickets, setTickets] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const pageSize = 10;
-  useEffect(() => {
-    fetchTickets(page);
-  }, [page]);
+
+  // useEffect(() => {
+  //   fetchTickets(page);
+  // }, [page]);
+
   const fetchTickets = async (page) => {
     setIsLoading(true);
     try {
@@ -35,6 +39,13 @@ const ListTicketsScreen = ({navigation}) => {
     }
     setIsLoading(false);
   };
+  
+  useFocusEffect(
+    useCallback(() => {
+      fetchTickets(page); // Fetch tickets when the screen gains focus
+    }, [page])
+  );
+
   const handleCloseTicket = async (ticketId) => {
     try {
       await axios.put(`${primaryURL}/api/admin/CloseTicket/${ticketId}`);
