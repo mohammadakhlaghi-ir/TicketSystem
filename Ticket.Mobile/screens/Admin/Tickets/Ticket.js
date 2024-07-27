@@ -70,7 +70,7 @@ const TicketScreen = ({ route }) => {
 
   return (
     <View style={styles.ticketContainer}>
-      <ScrollView >
+      <ScrollView style={styles.ticketScroll}>
         <View style={styles.ticketHeader}>
           <Text style={styles.ticketTitle}>{ticket.title}</Text>
           <Text style={styles.ticketCategory}>

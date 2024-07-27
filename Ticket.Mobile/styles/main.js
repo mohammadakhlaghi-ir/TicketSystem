@@ -165,4 +165,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  ticketScroll:{
+    height:'45%'
+  },
 });
