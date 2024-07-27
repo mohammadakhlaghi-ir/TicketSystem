@@ -100,22 +100,46 @@ export default StyleSheet.create({
     borderRadius: 2,
     padding: 5,
   },
-  messageContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    padding: 10,
+  messagesContainer: {
+    marginTop: 8,
+  },
+  message: {
+    marginBottom: 16,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: colors.grey,
+    backgroundColor:'white',
+    borderRadius:5,
+    width:'50%',
   },
   messageContent: {
     fontSize: 16,
-    marginBottom: 5,
   },
-  messageDetails: {
+  messageTimestamp: {
     fontSize: 12,
-    color: "#888",
+  },
+  messageUser: {
+    fontSize: 14,
+    fontStyle: 'italic',
   },
   ticketTitle: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    textAlign:'center'
+  },
+  ticketHeader: {
+    marginBottom: 16,
+  },
+  ticketCategory: {
+    fontSize: 18,
+    textAlign:'center'
+  },
+  ticketContainer: {
+    flex: 1,
+    padding: 16,
+  },
+  adminMessage:{
+    marginLeft: '50%',
   },
 });

@@ -9,11 +9,10 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios";
-import styles from "../../../styles/main";
 import primaryURL from "../../../config";
 import { formatDate } from "../../../components/dateUtils";
 import colors from "../../../styles/colors";
-
+import styles from "../../../styles/main"
 const ListTicketsScreen = ({navigation}) => {
   const [tickets, setTickets] = useState([]);
   const [page, setPage] = useState(1);
