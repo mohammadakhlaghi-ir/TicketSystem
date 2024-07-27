@@ -94,6 +94,7 @@ export default StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    textAlign:'center'
   },
   buttonPrimary:{
     backgroundColor: colors.primary,
@@ -136,10 +137,31 @@ export default StyleSheet.create({
     textAlign:'center'
   },
   ticketContainer: {
-    flex: 1,
     padding: 16,
+    
   },
   adminMessage:{
     marginLeft: '50%',
+  },
+  footer: {
+    borderTopWidth: 1,
+    borderTopColor: colors.grey,
+    paddingVertical: 16,
+    paddingHorizontal: 8,
+    backgroundColor: 'white',
+    flex:1
+    },
+  textarea: {
+    height: 100,
+    borderColor: colors.grey,
+    borderWidth: 1,
+    borderRadius: 4,
+    padding: 8,
+    marginBottom: 8,
+    textAlignVertical: 'top',
+  },
+  buttonContainerFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

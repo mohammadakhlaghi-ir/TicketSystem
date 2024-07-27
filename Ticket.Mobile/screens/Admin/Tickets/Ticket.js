@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import axios from "axios";
 import primaryURL from "../../../config";
 import { formatDate } from "../../../components/dateUtils";
@@ -45,33 +52,53 @@ const TicketScreen = ({ route }) => {
   }
 
   return (
-    <ScrollView style={styles.ticketContainer}>
-      <View style={styles.ticketHeader}>
-        <Text style={styles.ticketTitle}>{ticket.title}</Text>
-        <Text style={styles.ticketCategory}>
-          Category: {ticket.categoryName}
-        </Text>
-      </View>
-      <View style={styles.messagesContainer}>
-        {ticket.messages.map((message, index) => (
-          <View
-            key={index}
-            style={[
-              styles.message,
-              message.roleName === "Admin" && styles.adminMessage, // Apply conditional style
-            ]}
+    <View style={styles.footer}>
+      <ScrollView style={styles.ticketContainer}>
+        <View style={styles.ticketHeader}>
+          <Text style={styles.ticketTitle}>{ticket.title}</Text>
+          <Text style={styles.ticketCategory}>
+            Category: {ticket.categoryName}
+          </Text>
+        </View>
+        <View style={styles.messagesContainer}>
+          {ticket.messages.map((message, index) => (
+            <View
+              key={index}
+              style={[
+                styles.message,
+                message.roleName === "Admin" && styles.adminMessage, // Apply conditional style
+              ]}
+            >
+              <Text style={styles.messageContent}>{message.content}</Text>
+              <Text style={styles.messageTimestamp}>
+                {formatDate(message.timestamp)}
+              </Text>
+              <Text style={styles.messageUser}>
+                {message.userName} ({message.roleName})
+              </Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+      <View style={styles.footer}>
+        <TextInput
+          style={styles.textarea}
+          multiline
+          placeholder="Type your message here..."
+        />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.buttonPrimary}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.buttonDanger, styles.mt1]}
+           
           >
-            <Text style={styles.messageContent}>{message.content}</Text>
-            <Text style={styles.messageTimestamp}>
-              {formatDate(message.timestamp)}
-            </Text>
-            <Text style={styles.messageUser}>
-              {message.userName} ({message.roleName})
-            </Text>
-          </View>
-        ))}
+            <Text style={styles.buttonText }>Close</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
