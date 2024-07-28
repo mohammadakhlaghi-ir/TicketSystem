@@ -14,13 +14,16 @@ import colors from "../../../styles/colors";
 import styles from "../../../styles/main";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TicketScreen = ({ route, navigation  }) => {
   const { ticketId } = route.params;
   const [ticket, setTicket] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showFooter, setShowFooter] = useState(true); // State to control footer visibility
+  const [messageContent, setMessageContent] = useState(""); // State for message content
 
+  // Fetch ticket details
   const fetchTicketDetails = async () => {
     setIsLoading(true);
     try {
@@ -56,7 +59,27 @@ const TicketScreen = ({ route, navigation  }) => {
       console.error(error);
     }
   };
-
+ // Handle add message
+ const handleAddMessage = async () => {
+  const userId = await AsyncStorage.getItem("userId"); // Get the authenticated user's ID
+  if (!userId) {
+    console.error("User ID is not available.");
+    return;
+  }
+  try {
+    await axios.post(
+      `${primaryURL}/api/admin/${ticketId}/messages`,
+      {
+        content: messageContent,
+        userId: parseInt(userId), // Ensure the user ID is a number
+      }
+    );
+    setMessageContent(""); // Clear the input field
+    fetchTicketDetails(); // Refresh the ticket details to include the new message
+  } catch (error) {
+    console.error(error);
+  }
+};
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -119,9 +142,11 @@ const TicketScreen = ({ route, navigation  }) => {
             style={styles.textarea}
             multiline
             placeholder="Type your message here..."
+            value={messageContent}
+            onChangeText={setMessageContent} // Update state when text changes
           />
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonPrimary}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={handleAddMessage}>
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
             <TouchableOpacity

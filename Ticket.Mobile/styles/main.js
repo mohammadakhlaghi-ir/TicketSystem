@@ -148,7 +148,6 @@ export default StyleSheet.create({
     borderTopColor: colors.grey,
     paddingVertical: 16,
     paddingHorizontal: 8,
-    flex:1
     },
   textarea: {
     height: 100,
