@@ -12,19 +12,16 @@ import axios from "axios";
 import primaryURL from "../../../config";
 import { formatDate } from "../../../components/dateUtils";
 import colors from "../../../styles/colors";
-import styles from "../../../styles/main"
-import { useFocusEffect } from '@react-navigation/native';
+import styles from "../../../styles/main";
+import { useFocusEffect } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-const ListTicketsScreen = ({navigation}) => {
+const ListTicketsScreen = ({ navigation }) => {
   const [tickets, setTickets] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const pageSize = 10;
-
-  // useEffect(() => {
-  //   fetchTickets(page);
-  // }, [page]);
 
   const fetchTickets = async (page) => {
     setIsLoading(true);
@@ -39,7 +36,7 @@ const ListTicketsScreen = ({navigation}) => {
     }
     setIsLoading(false);
   };
-  
+
   useFocusEffect(
     useCallback(() => {
       fetchTickets(page); // Fetch tickets when the screen gains focus
@@ -60,6 +57,7 @@ const ListTicketsScreen = ({navigation}) => {
       Alert.alert("Error", "An error occurred while closing the ticket.");
     }
   };
+
   const renderTicket = ({ item }) => (
     <View style={styles.tableRow}>
       <Text style={styles.tableCellText}>{item.ticketId}</Text>
@@ -92,6 +90,7 @@ const ListTicketsScreen = ({navigation}) => {
       </View>
     </View>
   );
+
   const renderFooter = () => {
     if (!isLoading) return null;
     return <ActivityIndicator size="large" color={colors.primary} />;
@@ -108,6 +107,23 @@ const ListTicketsScreen = ({navigation}) => {
       setPage(page - 1);
     }
   };
+
+  const handleReload = () => {
+    fetchTickets(page);
+  };
+
+  useEffect(() => {
+    // Setting header right component when the component mounts
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={handleReload} style={styles.headerButton}>
+          <Text style={styles.reloadText}>Refresh</Text>
+          <Icon name="refresh" size={24} color={colors.primary} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, handleReload]);
+
   return (
     <View style={styles.container}>
       <View style={styles.table}>

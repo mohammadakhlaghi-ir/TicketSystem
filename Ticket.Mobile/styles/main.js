@@ -168,4 +168,10 @@ export default StyleSheet.create({
   ticketScroll:{
     height:'45%'
   },
+  headerButton:{
+    flexDirection:'row',
+  },
+  reloadText:{
+    marginHorizontal:10
+  },
 });
