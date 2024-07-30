@@ -15,6 +15,7 @@ import EditAccountScreen from "../screens/Account/EditAccount";
 import CreateTicketScreen from "../screens/User/CreateTicket";
 import ListTicketsScreen from "../screens/Admin/Tickets/ListTickets";
 import TicketScreen from "../screens/Admin/Tickets/Ticket";
+import ListTicketsUserScreen from "../screens/User/ListTicketsUser";
 
 const Stack = createNativeStackNavigator();
 const isAuthenticated = async () => {
@@ -51,6 +52,7 @@ const MainStackNavigator = () => {
         <Stack.Screen name="Create Ticket" component={CreateTicketScreen} />
         <Stack.Screen name="List Tickets" component={ListTicketsScreen} />
         <Stack.Screen name="Ticket" component={TicketScreen} />
+        <Stack.Screen name="List Tickets User" component={ListTicketsUserScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

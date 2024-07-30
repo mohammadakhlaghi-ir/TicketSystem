@@ -75,6 +75,12 @@ const DashboardScreen = ({ navigation, isAuthenticated }) => {
                 onPress={() => navigation.navigate("Edit Account")}
               />
             </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="My Tickets"
+                onPress={() => navigation.navigate("List Tickets User")}
+              />
+            </View>
           </View>
         </>
       );
