@@ -25,5 +25,19 @@ namespace Ticket.Api.Controllers
             await _ticketService.CreateTicketAsync(request.Title, request.MessageContent, request.CategoryId, request.UserId);
             return Ok(new { Message = "Ticket created successfully" });
         }
+        // GET api/user/{userId}/tickets
+        [HttpGet("{userId}/tickets")]
+        public async Task<IActionResult> GetUserTickets(int userId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            try
+            {
+                var result = await _ticketService.GetUserTicketsWithDetailsAsync(userId, page, pageSize);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
