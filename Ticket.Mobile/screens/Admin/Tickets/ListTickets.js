@@ -52,6 +52,7 @@ const ListTicketsScreen = ({ navigation }) => {
         )
       );
       Alert.alert("Success", "The ticket has been closed.");
+      fetchTickets(page); // Reload the current page after closing the ticket
     } catch (error) {
       console.error(error);
       Alert.alert("Error", "An error occurred while closing the ticket.");

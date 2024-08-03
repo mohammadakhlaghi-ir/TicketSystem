@@ -51,6 +51,7 @@ const ListTicketsUserScreen = ({ navigation }) => {
             )
           );
           Alert.alert("Success", "The ticket has been closed.");
+          fetchTickets(page); // Reload the current page after closing the ticket
         } catch (error) {
           console.error(error);
           Alert.alert("Error", "An error occurred while closing the ticket.");
@@ -71,7 +72,7 @@ const ListTicketsUserScreen = ({ navigation }) => {
             <TouchableOpacity
               style={styles.buttonPrimary}
               onPress={() =>
-                navigation.navigate("Ticket", { ticketId: item.ticketId })
+                navigation.navigate("Ticket", { ticketId: item.id })
               } // Pass ticketId to TicketScreen
             >
               <Text style={styles.buttonText}>Open</Text>
@@ -79,7 +80,7 @@ const ListTicketsUserScreen = ({ navigation }) => {
             {item.status && ( // Conditionally render the "Close" button
               <TouchableOpacity
                 style={styles.buttonDanger}
-                onPress={() => handleCloseTicket(item.ticketId)}
+                onPress={() => handleCloseTicket(item.id)}
               >
                 <Text style={styles.buttonText}>Close</Text>
               </TouchableOpacity>

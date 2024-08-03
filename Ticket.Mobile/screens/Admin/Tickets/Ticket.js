@@ -22,7 +22,7 @@ const TicketScreen = ({ route, navigation  }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showFooter, setShowFooter] = useState(true); // State to control footer visibility
   const [messageContent, setMessageContent] = useState(""); // State for message content
-
+  console.log(213)
   // Fetch ticket details
   const fetchTicketDetails = async () => {
     setIsLoading(true);
