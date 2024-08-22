@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, Alert, TouchableOpacity } from "react-na
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../../styles/main";
 import primaryURL from "../../config";
+import { CommonActions } from "@react-navigation/native";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -38,7 +39,12 @@ const LoginScreen = ({ navigation }) => {
           } else {
             console.warn("userId not found in API response:", data);
           }
-          navigation.navigate("Dashboard");
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+            })
+          );
         } else {
           Alert.alert("Login failed", "Token is missing in the response");
         }
