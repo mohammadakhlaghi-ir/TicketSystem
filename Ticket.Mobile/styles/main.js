@@ -173,4 +173,11 @@ export default StyleSheet.create({
   reloadText:{
     marginHorizontal:10
   },
+  homeStyle:{
+    margin:10,
+  },
+  homeTitle:{
+    fontWeight:'bold',
+    marginVertical:10
+  }
 });
